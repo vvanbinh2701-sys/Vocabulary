@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "561554825236",
+    "project_id": "appel-e0dd1",
+    "storage_bucket": "appel-e0dd1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561554825236:android:76878ae09f2daf35b34701",
+        "android_client_info": {
+          "package_name": "com.example.english_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHXCuJViS_ca6z9KWATqq29aQteOTyxxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
