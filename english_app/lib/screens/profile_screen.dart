@@ -89,6 +89,21 @@ class ProfileScreen extends StatelessWidget {
             onTap: () => _sendResetPassword(context, app),
           ),
           _MenuTile(
+            icon: Icons.cloud_upload_outlined,
+            label: 'Đẩy dữ liệu mẫu lên Firestore (Seed)',
+            onTap: () async {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Đang đẩy dữ liệu lên Firestore...')),
+              );
+              await app.seedInitialData();
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Đẩy dữ liệu lên Firestore thành công!')),
+                );
+              }
+            },
+          ),
+          _MenuTile(
             icon: Icons.notifications_outlined,
             label: 'Thông báo nhắc nhở',
             onTap: () {},

@@ -4,30 +4,45 @@ import 'package:provider/provider.dart';
 import '../theme/app_theme.dart';
 import '../providers/app_state.dart';
 import '../models/app_models.dart';
+import '../services/deepseek_service.dart';
 
-/// Màn hình học chi tiết một chủ đề con (vd: "Gia đình" trong Từ vựng).
-/// categoryId ở đây thực chất là topicId (vd: 'vocab_family').
+/// Màn hình luyện tập cho một chủ đề con.
+/// Thay vì flashcard + luyện viết + ghép cặp, dùng 3 hình thức phù hợp với app.
 class PracticeScreen extends StatefulWidget {
   final String categoryId;
   final String categoryTitle;
-  const PracticeScreen({super.key, required this.categoryId, required this.categoryTitle});
+  final int initialTabIndex;
+  final List<Vocabulary>? customWords;
+  const PracticeScreen({
+    super.key,
+    required this.categoryId,
+    required this.categoryTitle,
+    this.initialTabIndex = 0,
+    this.customWords,
+  });
 
   @override
   State<PracticeScreen> createState() => _PracticeScreenState();
 }
 
-class _PracticeScreenState extends State<PracticeScreen> with SingleTickerProviderStateMixin {
+class _PracticeScreenState extends State<PracticeScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tab;
 
   @override
   void initState() {
     super.initState();
-    _tab = TabController(length: 2, vsync: this);
+    _tab = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: widget.initialTabIndex.clamp(0, 2),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final words = context.watch<AppState>().vocabByTopic(widget.categoryId);
+    final words = widget.customWords ?? context.watch<AppState>().vocabByTopic(widget.categoryId);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.categoryTitle),
@@ -38,50 +53,92 @@ class _PracticeScreenState extends State<PracticeScreen> with SingleTickerProvid
           indicatorColor: AppColors.primaryGreen,
           labelStyle: const TextStyle(fontWeight: FontWeight.w800),
           tabs: const [
-            Tab(text: 'Flashcard'),
-            Tab(text: 'Trắc nghiệm'),
+            Tab(text: 'Học hình ảnh'),
+            Tab(text: 'Sắp xếp câu'),
+            Tab(text: 'Hội thoại AI'),
           ],
         ),
       ),
       body: words.isEmpty
-          ? const Center(child: Text('Chưa có dữ liệu cho chủ đề này', style: TextStyle(color: AppColors.textGrey)))
+          ? const Center(
+              child: Text('Chưa có dữ liệu cho chủ đề này',
+                  style: TextStyle(color: AppColors.textGrey)),
+            )
           : TabBarView(
               controller: _tab,
               children: [
-                _FlashcardTab(words: words),
-                _QuizTab(words: words),
+                _ImageLearningTab(words: words),
+                _SentenceArrangeTab(words: words),
+                const _AiDialogueTab(),
               ],
             ),
     );
   }
 }
 
-// ---------------- FLASHCARD TAB ----------------
-
-class _FlashcardTab extends StatefulWidget {
+class _ImageLearningTab extends StatefulWidget {
   final List<Vocabulary> words;
-  const _FlashcardTab({required this.words});
+  const _ImageLearningTab({required this.words});
 
   @override
-  State<_FlashcardTab> createState() => _FlashcardTabState();
+  State<_ImageLearningTab> createState() => _ImageLearningTabState();
 }
 
-class _FlashcardTabState extends State<_FlashcardTab> {
+class _ImageLearningTabState extends State<_ImageLearningTab> {
   int _index = 0;
   bool _showMeaning = false;
+
+  static const _colors = [
+    AppColors.primaryGreen,
+    AppColors.blue,
+    AppColors.orange,
+    AppColors.purple,
+  ];
+
+  /// Map từ vựng → emoji minh họa
+  static const _emojiMap = {
+    'dog': '🐕', 'cat': '🐈', 'bird': '🐦', 'fish': '🐟', 'elephant': '🐘',
+    'tiger': '🐅', 'lion': '🦁', 'monkey': '🐒', 'horse': '🐴', 'cow': '🐄',
+    'mother': '👩', 'father': '👨', 'family': '👨‍👩‍👧‍👦', 'brother': '👦', 'sister': '👧',
+    'apple': '🍎', 'banana': '🍌', 'rice': '🍚', 'bread': '🍞', 'water': '💧',
+    'doctor': '🩺', 'teacher': '📚', 'student': '🎒', 'nurse': '💊',
+    'school': '🏫', 'house': '🏠', 'hospital': '🏥', 'restaurant': '🍽️', 'shop': '🛍️',
+    'car': '🚗', 'bus': '🚌', 'plane': '✈️', 'bike': '🚲',
+    'pen': '🖊️', 'book': '📖', 'phone': '📱', 'computer': '💻',
+    'hello': '👋', 'go': '🚶', 'eat': '🍽️', 'sleep': '😴', 'run': '🏃',
+    'beautiful': '✨', 'big': '🐋', 'small': '🐜', 'happy': '😊', 'sad': '😢',
+  };
+
+  String _emojiFor(String word) {
+    final lower = word.toLowerCase();
+    for (final entry in _emojiMap.entries) {
+      if (lower.contains(entry.key)) return entry.value;
+    }
+    // Fallback: dùng chữ cái đầu
+    return String.fromCharCode(lower.codeUnitAt(0) - 32 + 0x1F1E6);
+  }
 
   @override
   Widget build(BuildContext context) {
     final app = context.watch<AppState>();
     final words = widget.words;
+    if (words.isEmpty) {
+      return const Center(
+          child: Text('Không có từ nào', style: TextStyle(color: AppColors.textGrey)));
+    }
     final word = words[_index];
-    final isFav = app.isFavorite(word.id);
+    final color = _colors[_index % _colors.length];
+    final isMastered = word.masteryLevel == 'Đã thuộc';
+    final emoji = _emojiFor(word.word);
+    final hasImage = word.imageUrl != null && word.imageUrl!.isNotEmpty;
 
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Text('Thẻ ${_index + 1} / ${words.length}', style: const TextStyle(color: AppColors.textGrey, fontWeight: FontWeight.w600)),
+          Text('Từ ${_index + 1} / ${words.length}',
+              style: const TextStyle(
+                  color: AppColors.textGrey, fontWeight: FontWeight.w600)),
           const SizedBox(height: 8),
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
@@ -89,62 +146,127 @@ class _FlashcardTabState extends State<_FlashcardTab> {
               value: (_index + 1) / words.length,
               minHeight: 8,
               backgroundColor: AppColors.cardBorder,
-              valueColor: const AlwaysStoppedAnimation(AppColors.primaryGreen),
+              valueColor: AlwaysStoppedAnimation(color),
             ),
           ),
           const SizedBox(height: 24),
           Expanded(
             child: GestureDetector(
               onTap: () => setState(() => _showMeaning = !_showMeaning),
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 250),
-                transitionBuilder: (child, anim) => ScaleTransition(scale: anim, child: child),
-                child: Container(
-                  key: ValueKey('$_index$_showMeaning'),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: _showMeaning ? AppColors.blue : Colors.white,
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: AppColors.cardBorder, width: 2),
-                    boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 12, offset: const Offset(0, 6))],
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 12,
-                        right: 12,
-                        child: IconButton(
-                          icon: Icon(
-                            isFav ? Icons.favorite : Icons.favorite_border,
-                            color: isFav ? AppColors.red : (_showMeaning ? Colors.white : AppColors.textGrey),
-                          ),
-                          onPressed: () => app.toggleFavorite(word.id),
-                        ),
-                      ),
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(24),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: _showMeaning
-                                ? [
-                                    Text(word.meaning, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w900, color: Colors.white), textAlign: TextAlign.center),
-                                    const SizedBox(height: 12),
-                                    Text('"${word.example}"', style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.9), fontStyle: FontStyle.italic), textAlign: TextAlign.center),
-                                  ]
-                                : [
-                                    Text(word.word, style: const TextStyle(fontSize: 32, fontWeight: FontWeight.w900), textAlign: TextAlign.center),
-                                    const SizedBox(height: 8),
-                                    Text(word.pronunciation, style: const TextStyle(fontSize: 16, color: AppColors.textGrey)),
-                                    const SizedBox(height: 20),
-                                    const Text('Chạm để xem nghĩa 👆', style: TextStyle(fontSize: 12, color: AppColors.textGrey)),
-                                  ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: AppColors.cardBorder, width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.06),
+                        blurRadius: 14,
+                        offset: const Offset(0, 8)),
+                  ],
                 ),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(24)),
+                        child: Container(
+                          width: double.infinity,
+                          color: color,
+                          child: hasImage
+                              ? Image.network(
+                                  word.imageUrl!,
+                                  fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: Text(emoji, style: const TextStyle(fontSize: 72)),
+                                    );
+                                  },
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Center(child: Text(emoji, style: const TextStyle(fontSize: 72))),
+                                )
+                              : Center(
+                                  child: Text(emoji, style: const TextStyle(fontSize: 72)),
+                                ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: _showMeaning
+                            ? [
+                                Text(word.meaning,
+                                    style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w900,
+                                        color: Colors.white),
+                                    textAlign: TextAlign.center),
+                                const SizedBox(height: 12),
+                                Text('"${word.example}"',
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white70,
+                                        fontStyle: FontStyle.italic),
+                                    textAlign: TextAlign.center),
+                              ]
+                            : [
+                                Text(word.word,
+                                    style: TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w900,
+                                        color: color),
+                                    textAlign: TextAlign.center),
+                                const SizedBox(height: 8),
+                                Text(word.pronunciation,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        color: AppColors.textGrey)),
+                                const SizedBox(height: 20),
+                                const Text('Chạm để xem nghĩa 👆',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.textGrey)),
+                              ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          // Nút đánh dấu đã thuộc
+          GestureDetector(
+            onTap: () => app.toggleWordMastered(word.id),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              decoration: BoxDecoration(
+                color: isMastered
+                    ? AppColors.primaryGreen.withOpacity(0.12)
+                    : AppColors.textGrey.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    isMastered ? Icons.check_circle : Icons.check_circle_outline,
+                    color: isMastered ? AppColors.primaryGreen : AppColors.textGrey,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    isMastered ? 'Đã thuộc' : 'Đánh dấu đã thuộc',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: isMastered ? AppColors.primaryGreen : AppColors.textGrey,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -167,13 +289,16 @@ class _FlashcardTabState extends State<_FlashcardTab> {
               const SizedBox(width: 12),
               Expanded(
                 child: DuoButton(
-                  label: _index == words.length - 1 ? 'HOÀN THÀNH' : 'TIẾP THEO',
-                  color: AppColors.primaryGreen,
+                  label:
+                      _index == words.length - 1 ? 'HOÀN THÀNH' : 'TIẾP THEO',
+                  color: color,
                   shadowColor: AppColors.darkGreen,
                   onTap: () {
                     if (_index == words.length - 1) {
-                      app.updateProgress(word.category, 1.0);
-                      _showCompleteDialog(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Bạn đã xem hết bộ hình ảnh này 🎉')),
+                      );
                     } else {
                       setState(() {
                         _index++;
@@ -189,140 +314,231 @@ class _FlashcardTabState extends State<_FlashcardTab> {
       ),
     );
   }
-
-  void _showCompleteDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: const Text('🎉 Chúc mừng!'),
-        content: const Text('Bạn đã hoàn thành bộ flashcard này. Tiến độ và streak đã được cập nhật.'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Đóng')),
-        ],
-      ),
-    );
-  }
 }
 
-// ---------------- QUIZ TAB ----------------
-
-class _QuizTab extends StatefulWidget {
+class _SentenceArrangeTab extends StatefulWidget {
   final List<Vocabulary> words;
-  const _QuizTab({required this.words});
+  const _SentenceArrangeTab({required this.words});
 
   @override
-  State<_QuizTab> createState() => _QuizTabState();
+  State<_SentenceArrangeTab> createState() => _SentenceArrangeTabState();
 }
 
-class _QuizTabState extends State<_QuizTab> {
+class _SentenceArrangeTabState extends State<_SentenceArrangeTab> {
   int _index = 0;
-  int _score = 0;
-  String? _selected;
-  bool _answered = false;
+  late List<String> _shuffledTokens;
+  late List<String> _selectedTokens;
+  bool _checked = false;
+  bool _isCorrect = false;
 
-  List<String> _generateOptions(List<Vocabulary> pool, Vocabulary correct) {
-    final others = pool.where((v) => v.id != correct.id).map((v) => v.meaning).toList()..shuffle();
-    final opts = [correct.meaning, ...others.take(min(3, others.length))];
-    opts.shuffle(Random());
-    return opts;
+  @override
+  void initState() {
+    super.initState();
+    _prepareSentence();
+  }
+
+  void _prepareSentence() {
+    final word = widget.words[_index];
+    final sentence = _extractSentence(word.example, word.word);
+    final tokens = sentence
+        .replaceAll(RegExp(r'[.,!?]'), '')
+        .split(' ')
+        .where((token) => token.isNotEmpty)
+        .toList();
+    _shuffledTokens = List.of(tokens)..shuffle(Random());
+    _selectedTokens = [];
+    _checked = false;
+    _isCorrect = false;
+  }
+
+  String _extractSentence(String example, String word) {
+    if (example.trim().isEmpty) {
+      return 'I love $word.';
+    }
+    final match = RegExp(r'([^.!?]+[.!?])').firstMatch(example);
+    if (match != null) {
+      return match.group(1)!.trim();
+    }
+    return example.trim();
+  }
+
+  void _toggleToken(String token) {
+    setState(() {
+      if (_selectedTokens.contains(token)) {
+        _selectedTokens.remove(token);
+        _shuffledTokens.add(token);
+      } else if (_shuffledTokens.contains(token)) {
+        _shuffledTokens.remove(token);
+        _selectedTokens.add(token);
+      }
+      _checked = false;
+    });
+  }
+
+  void _checkAnswer() {
+    final word = widget.words[_index];
+    final sentence = _extractSentence(word.example, word.word);
+    final correct = sentence
+        .replaceAll(RegExp(r'[.,!?]'), '')
+        .split(' ')
+        .where((token) => token.isNotEmpty)
+        .toList();
+    final answer = List.of(_selectedTokens);
+    setState(() {
+      _checked = true;
+      _isCorrect = answer.length == correct.length &&
+          answer
+              .asMap()
+              .entries
+              .every((entry) => entry.value == correct[entry.key]);
+    });
+  }
+
+  void _nextSentence() {
+    if (_index < widget.words.length - 1) {
+      setState(() {
+        _index++;
+        _prepareSentence();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final words = widget.words;
-
-    if (_index >= words.length) {
-      return _ResultView(score: _score, total: words.length, onRetry: () => setState(() {
-        _index = 0;
-        _score = 0;
-        _answered = false;
-        _selected = null;
-      }));
-    }
-
-    final word = words[_index];
-    final options = _generateOptions(words, word);
+    final word = widget.words[_index];
+    final sentence = _extractSentence(word.example, word.word);
 
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Câu ${_index + 1} / ${words.length}', style: const TextStyle(color: AppColors.textGrey, fontWeight: FontWeight.w600)),
+          Text('Câu ${_index + 1} / ${widget.words.length}',
+              style: const TextStyle(
+                  color: AppColors.textGrey, fontWeight: FontWeight.w600)),
           const SizedBox(height: 8),
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: LinearProgressIndicator(
-              value: (_index) / words.length,
+              value: (_index + 1) / widget.words.length,
               minHeight: 8,
               backgroundColor: AppColors.cardBorder,
               valueColor: const AlwaysStoppedAnimation(AppColors.blue),
             ),
           ),
-          const SizedBox(height: 28),
-          const Text('"${''}"', style: TextStyle(fontSize: 0)), // spacer noop
-          Text('Từ "${word.word}" có nghĩa là gì?', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
           const SizedBox(height: 24),
-          Expanded(
-            child: ListView.separated(
-              itemCount: options.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
-              itemBuilder: (context, i) {
-                final opt = options[i];
-                final isCorrect = opt == word.meaning;
-                Color bg = Colors.white;
-                Color border = AppColors.cardBorder;
-                if (_answered) {
-                  if (isCorrect) {
-                    bg = AppColors.primaryGreen.withOpacity(0.15);
-                    border = AppColors.primaryGreen;
-                  } else if (opt == _selected) {
-                    bg = AppColors.red.withOpacity(0.12);
-                    border = AppColors.red;
-                  }
-                }
-                return GestureDetector(
-                  onTap: _answered
-                      ? null
-                      : () {
-                          setState(() {
-                            _selected = opt;
-                            _answered = true;
-                            if (isCorrect) _score++;
-                          });
-                        },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
-                    decoration: BoxDecoration(
-                      color: bg,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: border, width: 2),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(child: Text(opt, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600))),
-                        if (_answered && isCorrect) const Icon(Icons.check_circle, color: AppColors.primaryGreen),
-                        if (_answered && !isCorrect && opt == _selected) const Icon(Icons.cancel, color: AppColors.red),
-                      ],
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: AppColors.cardBorder, width: 2),
+            ),
+            padding: const EdgeInsets.all(18),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Sắp xếp câu đúng thứ tự',
+                    style:
+                        TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+                const SizedBox(height: 10),
+                Text('Dùng từ: "${word.word}"',
+                    style: const TextStyle(color: AppColors.textGrey)),
+                const SizedBox(height: 14),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: _selectedTokens
+                      .map((token) => GestureDetector(
+                            onTap: () => _toggleToken(token),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 14, vertical: 10),
+                              decoration: BoxDecoration(
+                                color: AppColors.primaryGreen
+                                    .withValues(alpha: 0.12),
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                              child: Text(token,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w700)),
+                            ),
+                          ))
+                      .toList(),
+                ),
+                const SizedBox(height: 18),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: _shuffledTokens
+                      .map((token) => GestureDetector(
+                            onTap: () => _toggleToken(token),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 14, vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(999),
+                                border: Border.all(
+                                    color: AppColors.cardBorder, width: 2),
+                              ),
+                              child: Text(token,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w700)),
+                            ),
+                          ))
+                      .toList(),
+                ),
+                const SizedBox(height: 18),
+                if (_checked)
+                  Text(
+                    _isCorrect
+                        ? 'Bạn ghép đúng rồi! 🎉'
+                        : 'Câu chưa đúng, hãy thử lại.',
+                    style: TextStyle(
+                      color:
+                          _isCorrect ? AppColors.primaryGreen : AppColors.red,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                );
-              },
+                if (_checked && _isCorrect) ...[
+                  const SizedBox(height: 10),
+                  Text('Câu chính xác: $sentence',
+                      style: const TextStyle(color: AppColors.textGrey)),
+                ],
+              ],
             ),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            children: [
+              Expanded(
+                child: DuoButton(
+                  label: 'LÀM LẠI',
+                  color: AppColors.textGrey,
+                  shadowColor: const Color(0xFF555555),
+                  onTap: () => setState(_prepareSentence),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: DuoButton(
+                  label: _index == widget.words.length - 1
+                      ? 'HOÀN THÀNH'
+                      : 'KIỂM TRA',
+                  color: AppColors.blue,
+                  shadowColor: AppColors.darkBlue,
+                  onTap: _selectedTokens.isEmpty ? null : _checkAnswer,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 12),
           DuoButton(
-            label: _index == words.length - 1 ? 'XEM KẾT QUẢ' : 'CÂU TIẾP THEO',
-            color: AppColors.blue,
-            shadowColor: AppColors.darkBlue,
-            onTap: _answered
-                ? () => setState(() {
-                      _index++;
-                      _answered = false;
-                      _selected = null;
-                    })
-                : null,
+            label: 'CHUYỂN NHÓM TIẾP',
+            color: AppColors.primaryGreen,
+            shadowColor: AppColors.darkGreen,
+            onTap: _index == widget.words.length - 1 ? null : _nextSentence,
           ),
         ],
       ),
@@ -330,30 +546,114 @@ class _QuizTabState extends State<_QuizTab> {
   }
 }
 
-class _ResultView extends StatelessWidget {
-  final int score;
-  final int total;
-  final VoidCallback onRetry;
-  const _ResultView({required this.score, required this.total, required this.onRetry});
+class _AiDialogueTab extends StatefulWidget {
+  const _AiDialogueTab();
+
+  @override
+  State<_AiDialogueTab> createState() => _AiDialogueTabState();
+}
+
+class _AiDialogueTabState extends State<_AiDialogueTab> {
+  final _textController = TextEditingController();
+  String _dialogue = '';
+  bool _isLoading = false;
+  String _error = '';
+
+  // TODO: Thay bằng API Key DeepSeek từ https://platform.deepseek.com/api_keys
+  static const _apiKey = 'sk-68f37fb858bf44a9afbf0d4240a0b76b';
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _generateDialogue() async {
+    final term = _textController.text.trim();
+    if (term.isEmpty) {
+      setState(() => _error = 'Vui lòng nhập một từ tiếng Anh.');
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+      _dialogue = '';
+      _error = '';
+    });
+
+    final service = DeepSeekService(apiKey: _apiKey);
+    final result = await service.generateDialogue(term);
+    setState(() {
+      _dialogue = result;
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final percent = total == 0 ? 0.0 : score / total;
     return Padding(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(20),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(percent >= 0.7 ? '🏆' : '💪', style: const TextStyle(fontSize: 64)),
-          const SizedBox(height: 16),
-          Text('Bạn đúng $score/$total câu', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
-          const SizedBox(height: 8),
-          Text(
-            percent >= 0.7 ? 'Tuyệt vời, bạn nắm rất chắc!' : 'Cố lên, luyện thêm chút nữa nhé!',
-            style: const TextStyle(color: AppColors.textGrey),
+          const Text('Nhập một từ bất kỳ',
+              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16)),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: AppColors.cardBorder, width: 2),
+            ),
+            child: TextField(
+              controller: _textController,
+              onSubmitted: (_) => _generateDialogue(),
+              decoration: const InputDecoration(
+                hintText: 'Nhập từ tiếng Anh...',
+                border: InputBorder.none,
+              ),
+            ),
           ),
-          const SizedBox(height: 32),
-          DuoButton(label: 'LÀM LẠI', color: AppColors.primaryGreen, shadowColor: AppColors.darkGreen, onTap: onRetry),
+          const SizedBox(height: 18),
+          DuoButton(
+            label: _isLoading ? 'ĐANG TẠO...' : 'TẠO HỘI THOẠI',
+            color: AppColors.primaryGreen,
+            shadowColor: AppColors.darkGreen,
+            onTap: _isLoading ? null : _generateDialogue,
+          ),
+          if (_isLoading) ...[
+            const SizedBox(height: 18),
+            const Center(child: CircularProgressIndicator()),
+          ],
+          const SizedBox(height: 18),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: AppColors.cardBorder, width: 2),
+              ),
+              child: SingleChildScrollView(
+                child: _error.isNotEmpty
+                    ? Text(_error,
+                        style: const TextStyle(
+                            color: AppColors.red, height: 1.6))
+                    : _dialogue.isEmpty
+                        ? const Text(
+                            'Nhập một từ tiếng Anh và nhấn "Tạo hội thoại" để AI (DeepSeek) tạo một đoạn hội thoại mẫu.\n\nVí dụ: nhập "travel" rồi nhấn nút.',
+                            style: TextStyle(
+                                height: 1.6, color: AppColors.textGrey))
+                        : Text(_dialogue,
+                            style: const TextStyle(
+                                height: 1.8,
+                                color: AppColors.textDark,
+                                fontSize: 15)),
+              ),
+            ),
+          ),
         ],
       ),
     );

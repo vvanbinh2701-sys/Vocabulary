@@ -1,0 +1,1534 @@
+{
+  "categories": [
+    {
+      "id": "vocab",
+      "title": "Học Từ vựng",
+      "subtitle": "Mở rộng vốn từ mỗi ngày",
+      "icon": "style_rounded",
+      "colorIndex": 0
+    },
+    {
+      "id": "grammar",
+      "title": "Học Ngữ pháp",
+      "subtitle": "Nắm vững cấu trúc câu",
+      "icon": "menu_book_rounded",
+      "colorIndex": 1
+    },
+    {
+      "id": "conversation",
+      "title": "Học Hội thoại",
+      "subtitle": "Giao tiếp tự nhiên hơn",
+      "icon": "chat_bubble_rounded",
+      "colorIndex": 2
+    },
+    {
+      "id": "phrase",
+      "title": "Học Câu",
+      "subtitle": "Mẫu câu thông dụng",
+      "icon": "format_quote_rounded",
+      "colorIndex": 3
+    }
+  ],
+  "topics": [
+    {
+      "id": "vocab_family",
+      "categoryId": "vocab",
+      "title": "Gia đình",
+      "icon": "👨‍👩‍👧",
+      "itemCount": 5
+    },
+    {
+      "id": "vocab_food",
+      "categoryId": "vocab",
+      "title": "Đồ ăn",
+      "icon": "🍜",
+      "itemCount": 5
+    },
+    {
+      "id": "vocab_travel",
+      "categoryId": "vocab",
+      "title": "Du lịch",
+      "icon": "✈️",
+      "itemCount": 5
+    },
+    {
+      "id": "vocab_school",
+      "categoryId": "vocab",
+      "title": "Trường học",
+      "icon": "🏫",
+      "itemCount": 5
+    },
+    {
+      "id": "vocab_jobs",
+      "categoryId": "vocab",
+      "title": "Nghề nghiệp",
+      "icon": "💼",
+      "itemCount": 5
+    },
+    {
+      "id": "vocab_animals",
+      "categoryId": "vocab",
+      "title": "Động vật",
+      "icon": "🦁",
+      "itemCount": 5
+    },
+    {
+      "id": "conv_greeting",
+      "categoryId": "conversation",
+      "title": "Chào hỏi",
+      "icon": "👋",
+      "itemCount": 5
+    },
+    {
+      "id": "conv_restaurant",
+      "categoryId": "conversation",
+      "title": "Ở nhà hàng",
+      "icon": "🍽️",
+      "itemCount": 5
+    },
+    {
+      "id": "conv_shopping",
+      "categoryId": "conversation",
+      "title": "Mua sắm",
+      "icon": "🛍️",
+      "itemCount": 5
+    },
+    {
+      "id": "conv_direction",
+      "categoryId": "conversation",
+      "title": "Hỏi đường",
+      "icon": "🗺️",
+      "itemCount": 5
+    },
+    {
+      "id": "conv_doctor",
+      "categoryId": "conversation",
+      "title": "Khám bệnh",
+      "icon": "🏥",
+      "itemCount": 5
+    },
+    {
+      "id": "phrase_daily",
+      "categoryId": "phrase",
+      "title": "Giao tiếp hàng ngày",
+      "icon": "💬",
+      "itemCount": 4
+    },
+    {
+      "id": "phrase_work",
+      "categoryId": "phrase",
+      "title": "Công việc",
+      "icon": "💻",
+      "itemCount": 4
+    },
+    {
+      "id": "phrase_emergency",
+      "categoryId": "phrase",
+      "title": "Khẩn cấp",
+      "icon": "🚨",
+      "itemCount": 4
+    }
+  ],
+  "vocabularies": [
+    { "id": "v1", "word": "Family", "meaning": "Gia đình", "pronunciation": "/ˈfæməli/", "example": "I love my family.", "category": "vocab", "topicId": "vocab_family", "masteryLevel": "Đã thuộc", "imageUrl": "" },
+    { "id": "v2", "word": "Mother", "meaning": "Mẹ", "pronunciation": "/ˈmʌðər/", "example": "My mother is a teacher.", "category": "vocab", "topicId": "vocab_family", "masteryLevel": "Đang học", "imageUrl": "" },
+    { "id": "v3", "word": "Father", "meaning": "Bố", "pronunciation": "/ˈfɑːðər/", "example": "My father works hard.", "category": "vocab", "topicId": "vocab_family", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v4", "word": "Sibling", "meaning": "Anh chị em", "pronunciation": "/ˈsɪblɪŋ/", "example": "I have two siblings.", "category": "vocab", "topicId": "vocab_family", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v4_1", "word": "Grandfather", "meaning": "Ông", "pronunciation": "/ˈɡrændfɑːðər/", "example": "My grandfather is seventy years old.", "category": "vocab", "topicId": "vocab_family", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v5", "word": "Apple", "meaning": "Quả táo", "pronunciation": "/ˈæpl/", "example": "I eat an apple every day.", "category": "vocab", "topicId": "vocab_food", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v6", "word": "Rice", "meaning": "Cơm/Gạo", "pronunciation": "/raɪs/", "example": "We eat rice for dinner.", "category": "vocab", "topicId": "vocab_food", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v7", "word": "Noodle", "meaning": "Mì", "pronunciation": "/ˈnuːdl/", "example": "I like beef noodles.", "category": "vocab", "topicId": "vocab_food", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v7_1", "word": "Bread", "meaning": "Bánh mì", "pronunciation": "/bred/", "example": "I want to eat bread.", "category": "vocab", "topicId": "vocab_food", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v7_2", "word": "Cheese", "meaning": "Phô mai", "pronunciation": "/tʃiːz/", "example": "This pizza has extra cheese.", "category": "vocab", "topicId": "vocab_food", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v8", "word": "Travel", "meaning": "Du lịch", "pronunciation": "/ˈtrævl/", "example": "I want to travel the world.", "category": "vocab", "topicId": "vocab_travel", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v9", "word": "Airport", "meaning": "Sân bay", "pronunciation": "/ˈeəpɔːt/", "example": "The airport is busy today.", "category": "vocab", "topicId": "vocab_travel", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v10", "word": "Passport", "meaning": "Hộ chiếu", "pronunciation": "/ˈpɑːspɔːt/", "example": "Don't forget your passport.", "category": "vocab", "topicId": "vocab_travel", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v10_1", "word": "Luggage", "meaning": "Hành lý", "pronunciation": "/ˈlʌɡɪdʒ/", "example": "Please keep your luggage with you.", "category": "vocab", "topicId": "vocab_travel", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v10_2", "word": "Hotel", "meaning": "Khách sạn", "pronunciation": "/həʊˈtel/", "example": "We booked a room at the hotel.", "category": "vocab", "topicId": "vocab_travel", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v11", "word": "School", "meaning": "Trường học", "pronunciation": "/skuːl/", "example": "I go to school every day.", "category": "vocab", "topicId": "vocab_school", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v12", "word": "Teacher", "meaning": "Giáo viên", "pronunciation": "/ˈtiːtʃər/", "example": "The teacher is kind.", "category": "vocab", "topicId": "vocab_school", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v13", "word": "Homework", "meaning": "Bài tập về nhà", "pronunciation": "/ˈhəʊmwɜːk/", "example": "I finished my homework.", "category": "vocab", "topicId": "vocab_school", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v13_1", "word": "Classmate", "meaning": "Bạn cùng lớp", "pronunciation": "/ˈklɑːsmeɪt/", "example": "He is my favorite classmate.", "category": "vocab", "topicId": "vocab_school", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v13_2", "word": "Library", "meaning": "Thư viện", "pronunciation": "/ˈlaɪbrəri/", "example": "I study in the library.", "category": "vocab", "topicId": "vocab_school", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v14_1", "word": "Doctor", "meaning": "Bác sĩ", "pronunciation": "/ˈdɒktər/", "example": "The doctor gave me some medicine.", "category": "vocab", "topicId": "vocab_jobs", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v14_2", "word": "Engineer", "meaning": "Kỹ sư", "pronunciation": "/ˌendʒɪˈnɪər/", "example": "He wants to be a software engineer.", "category": "vocab", "topicId": "vocab_jobs", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v14_3", "word": "Artist", "meaning": "Họa sĩ", "pronunciation": "/ˈɑːtɪst/", "example": "She is a talented artist.", "category": "vocab", "topicId": "vocab_jobs", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v14_4", "word": "Pilot", "meaning": "Phi công", "pronunciation": "/ˈpaɪlət/", "example": "The pilot flew the plane safely.", "category": "vocab", "topicId": "vocab_jobs", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v14_5", "word": "Chef", "meaning": "Đầu bếp", "pronunciation": "/ʃef/", "example": "The chef prepared a delicious dinner.", "category": "vocab", "topicId": "vocab_jobs", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v15_1", "word": "Lion", "meaning": "Sư tử", "pronunciation": "/ˈlaɪən/", "example": "The lion is the king of the jungle.", "category": "vocab", "topicId": "vocab_animals", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v15_2", "word": "Elephant", "meaning": "Con voi", "pronunciation": "/ˈelɪfənt/", "example": "Elephants are the largest land animals.", "category": "vocab", "topicId": "vocab_animals", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v15_3", "word": "Monkey", "meaning": "Con khỉ", "pronunciation": "/ˈmʌŋki/", "example": "The monkey is climbing the tree.", "category": "vocab", "topicId": "vocab_animals", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v15_4", "word": "Rabbit", "meaning": "Con thỏ", "pronunciation": "/ˈræbɪt/", "example": "The white rabbit eats carrots.", "category": "vocab", "topicId": "vocab_animals", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "v15_5", "word": "Dolphin", "meaning": "Cá heo", "pronunciation": "/ˈdɒlfɪn/", "example": "Dolphins are smart animals.", "category": "vocab", "topicId": "vocab_animals", "masteryLevel": "Mới", "imageUrl": "" },
+    { "id": "c1", "word": "Hello, how are you?", "meaning": "Xin chào, bạn khoẻ không?", "pronunciation": "", "example": "Lời chào hỏi thông thường.", "category": "conversation", "topicId": "conv_greeting", "masteryLevel": "Mới" },
+    { "id": "c2", "word": "Nice to meet you.", "meaning": "Rần vui được gặp bạn.", "pronunciation": "", "example": "Dùng khi gặp ai đó lần đầu.", "category": "conversation", "topicId": "conv_greeting", "masteryLevel": "Mới" },
+    { "id": "c3", "word": "Can I have the menu, please?", "meaning": "Cho tôi xin thực đơn được không?", "pronunciation": "", "example": "Dùng khi gọi món ở nhà hàng.", "category": "conversation", "topicId": "conv_restaurant", "masteryLevel": "Mới" },
+    { "id": "c4", "word": "The bill, please.", "meaning": "Cho tôi xin hoá đơn.", "pronunciation": "", "example": "Dùng khi thanh toán.", "category": "conversation", "topicId": "conv_restaurant", "masteryLevel": "Mới" },
+    { "id": "c5", "word": "How much does it cost?", "meaning": "Cái này giá bao nhiêu?", "pronunciation": "", "example": "Dùng khi mua sắm.", "category": "conversation", "topicId": "conv_shopping",
+    {
+      "id": "c1", "word": "Hello, how are you?", "meaning": "Xin chào, bạn khoẻ không?", "pronunciation": "", "example": "Lời chào hỏi thông thường.", "category": "conversation", "topicId": "conv_greeting", "masteryLevel": "Mới" },
+    {
+      "id": "c2", "word": "Nice to meet you.", "meaning": "Rần vui được gặp bạn.", "pronunciation": "", "example": "Dùng khi gặp ai đó lần đầu.", "category": "conversation", "topicId": "conv_greeting", "masteryLevel": "Mới" },
+    {
+      "id": "c3", "word": "Can I have the menu, please?", "meaning": "Cho tôi xin thực đơn được không?", "pronunciation": "", "example": "Dùng khi gọi món ở nhà hàng.", "category": "conversation", "topicId": "conv_restaurant", "masteryLevel": "Mới" },
+    {
+      "id": "c4", "word": "The bill, please.", "meaning": "Cho tôi xin hoá đơn.", "pronunciation": "", "example": "Dùng khi thanh toán.", "category": "conversation", "topicId": "conv_restaurant", "masteryLevel": "Mới" },
+    {
+      "id": "c5", "word": "How much does it cost?", "meaning": "Cái này giá bao nhiêu?", "pronunciation": "", "example": "Dùng khi mua sắm.", "category": "conversation", "topicId": "conv_shopping",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p1",
+      "word": "Take it easy.",
+      "meaning": "Thư giãn đi / Đừng lo lắng.",
+      "pronunciation": "",
+      "example": "Mẫu câu an ủi.",
+      "category": "phrase",
+      "topicId": "phrase_daily",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p2",
+      "word": "It depends.",
+      "meaning": "Còn tuỳ.",
+      "pronunciation": "",
+      "example": "Dùng khi chưa chắc chắn.",
+      "category": "phrase",
+      "topicId": "phrase_daily",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p2_1",
+      "word": "Long time no see.",
+      "meaning": "Lâu rồi không gặp.",
+      "pronunciation": "",
+      "example": "Dùng khi gặp lại người quen.",
+      "category": "phrase",
+      "topicId": "phrase_daily",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p2_2",
+      "word": "Have a nice day.",
+      "meaning": "Chúc một ngày tốt lành.",
+      "pronunciation": "",
+      "example": "Mẫu câu chúc xã giao.",
+      "category": "phrase",
+      "topicId": "phrase_daily",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p3",
+      "word": "I am on my way.",
+      "meaning": "Tôi đang trên đường tới.",
+      "pronunciation": "",
+      "example": "Thông báo đang di chuyển.",
+      "category": "phrase",
+      "topicId": "phrase_work",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p4",
+      "word": "Let's get started.",
+      "meaning": "Hãy bắt đầu thôi.",
+      "pronunciation": "",
+      "example": "Mở đầu cuộc họp.",
+      "category": "phrase",
+      "topicId": "phrase_work",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p4_1",
+      "word": "Please keep me updated.",
+      "meaning": "Xin vui lòng cập nhật tình hình cho tôi.",
+      "pronunciation": "",
+      "example": "Dùng khi muốn theo dõi tiến độ.",
+      "category": "phrase",
+      "topicId": "phrase_work",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p4_2",
+      "word": "Let's call it a day.",
+      "meaning": "Hôm nay nghỉ ở đây nhé.",
+      "pronunciation": "",
+      "example": "Dùng khi kết thúc công việc trong ngày.",
+      "category": "phrase",
+      "topicId": "phrase_work",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p5_1",
+      "word": "Help me, please!",
+      "meaning": "Làm ơn giúp tôi với!",
+      "pronunciation": "",
+      "example": "Kêu gọi trợ giúp khẩn cấp.",
+      "category": "phrase",
+      "topicId": "phrase_emergency",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p5_2",
+      "word": "Call an ambulance!",
+      "meaning": "Hãy gọi xe cứu thương!",
+      "pronunciation": "",
+      "example": "Yêu cầu y tế khẩn cấp.",
+      "category": "phrase",
+      "topicId": "phrase_emergency",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p5_3",
+      "word": "I lost my passport.",
+      "meaning": "Tôi đã làm mất hộ chiếu.",
+      "pronunciation": "",
+      "example": "Khai báo mất giấy tờ.",
+      "category": "phrase",
+      "topicId": "phrase_emergency",
+      "masteryLevel": "Mới"
+    },
+    {
+      "id": "p5_4",
+      "word": "Where is the police station?",
+      "meaning": "Đồn cảnh sát ở đâu?",
+      "pronunciation": "",
+      "example": "Hỏi đường khi gặp sự cố.",
+      "category": "phrase",
+      "topicId": "phrase_emergency",
+      "masteryLevel": "Mới"
+    }
+  ],
+  "grammar_lessons": [
+    {
+      "id": "g1",
+      "categoryId": "grammar",
+      "title": "Thì hiện tại đơn",
+      "summary": "Diễn tả thói quen, sự thật hiển nhiên",
+      "content": "Thì hiện tại đơn dùng để diễn tả thói quen, hành động lặp đi lặp lại hoặc sự thật hiển nhiên.",
+      "isCompleted": true,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Thì hiện tại đơn dùng để diễn tả hành động lặp lại, thói quen, chân lý hoặc sự thật hiển nhiên."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + V(s/es) + O\nPhủ định: S + do/does not + V + O\nNghi vấn: Do/Does + S + V + O?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng khi nói về thói quen, lịch trình cố định, sự thật hiển nhiên và cảm xúc, ý kiến."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "Always, usually, often, sometimes, every day, on Mondays, never."
+        },
+        {
+          "title": "V. QUY TẮC THÊM “S” HOẶC “ES”",
+          "content": "Động từ thêm \"s\" với he/she/it. Với động từ tận cùng -s/-x/-z/-ch/-sh/-o dùng \"es\"."
+        }
+      ]
+    },
+    {
+      "id": "g2",
+      "categoryId": "grammar",
+      "title": "Thì hiện tại tiếp diễn",
+      "summary": "Diễn tả hành động đang xảy ra",
+      "content": "Thì hiện tại tiếp diễn dùng để diễn tả hành động đang xảy ra ngay lúc nói.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Thì hiện tại tiếp diễn diễn tả hành động đang xảy ra tại thời điểm nói hoặc kế hoạch tương lai rõ ràng."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + am/is/are + V-ing\nPhủ định: S + am/is/are not + V-ing\nNghi vấn: Am/Is/Are + S + V-ing?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng cho hành động đang xảy ra, hành động tạm thời và kế hoạch tương lai đã định."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "Now, at the moment, currently, today, this week, listen!, look!."
+        },
+        {
+          "title": "V. LƯU Ý",
+          "content": "Một số động từ trạng thái không dùng thể tiếp diễn: want, like, know, belong..."
+        }
+      ]
+    },
+    {
+      "id": "g3",
+      "categoryId": "grammar",
+      "title": "Thì quá khứ đơn",
+      "summary": "Diễn tả hành động đã xảy ra và kết thúc",
+      "content": "Thì quá khứ đơn dùng để diễn tả hành động đã xảy ra và kết thúc trong quá khứ.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Thì quá khứ đơn dùng để diễn tả một hành động đã xảy ra và hoàn toàn kết thúc trong quá khứ."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + V2 + O\nPhủ định: S + did not + V + O\nNghi vấn: Did + S + V + O?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng cho hành động đã xảy ra trong quá khứ, chuỗi hành động quá khứ và thời gian xác định."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "Yesterday, last week, in 2010, ago, when, once."
+        },
+        {
+          "title": "V. LƯU Ý",
+          "content": "Động từ bất quy tắc có dạng quá khứ riêng; cần học thuộc các dạng khác nhau."
+        }
+      ]
+    },
+    {
+      "id": "g4",
+      "categoryId": "grammar",
+      "title": "Thì tương lai đơn",
+      "summary": "Diễn tả quyết định tức thời, dự đoán",
+      "content": "Thì tương lai đơn diễn tả một hành động sẽ xảy ra trong tương lai hoặc quyết định đưa ra ngay lúc nói.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả hành động sẽ xảy ra trong tương lai hoặc quyết định tự phát ngay lúc nói."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + will + V\nPhủ định: S + will not (won't) + V\nNghi vấn: Will + S + V?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Quyết định ngay khi nói, lời hứa, lời đe dọa, dự đoán không có căn cứ chắc chắn."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "Tomorrow, next week, in the future, think, believe, perhaps."
+        }
+      ]
+    },
+    {
+      "id": "g5",
+      "categoryId": "grammar",
+      "title": "Thì hiện tại hoàn thành",
+      "summary": "Diễn tả trải nghiệm kéo dài từ quá khứ đến hiện tại",
+      "content": "Thì hiện tại hoàn thành diễn tả hành động đã xảy ra hoặc chưa từng xảy ra trong quá khứ mà kết quả liên quan hiện tại.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả hành động bắt đầu ở quá khứ, kéo dài đến hiện tại và có khả năng tiếp tục trong tương lai."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + have/has + V3\nPhủ định: S + have/has not + V3\nNghi vấn: Have/Has + S + V3?"
+        },
+        {
+          "title": "III. DẤU HIỆU NHẬN BIẾT",
+          "content": "Since, for, already, yet, just, ever, never, so far."
+        }
+      ]
+    },
+    {
+      "id": "g6",
+      "categoryId": "grammar",
+      "title": "So sánh hơn và So sánh nhất",
+      "summary": "So sánh tính chất giữa các sự vật",
+      "content": "Sử dụng tính từ ngắn và tính từ dài để so sánh hai hoặc nhiều đối tượng với nhau.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. SO SÁNH HƠN (COMPARATIVE)",
+          "content": "Tính từ ngắn: S + V + adj-er + than + O\nTính từ dài: S + V + more + adj + than + O"
+        },
+        {
+          "title": "II. SO SÁNH NHẤT (SUPERLATIVE)",
+          "content": "Tính từ ngắn: S + V + the + adj-est + O\nTính từ dài: S + V + the most + adj + O"
+        },
+        {
+          "title": "III. CÁC TÍNH TỪ ĐẶC BIỆT",
+          "content": "Good -> better -> best\nBad -> worse -> worst\nFar -> further/farther -> furthest/farthest"
+        }
+      ]
+    },
+    {
+      "id": "g7",
+      "categoryId": "grammar",
+      "title": "Thì quá khứ tiếp diễn",
+      "summary": "Diễn tả hành động đang xảy ra tại một thời điểm trong quá khứ",
+      "content": "Thì quá khứ tiếp diễn dùng để diễn tả hành động đang diễn ra tại một thời điểm xác định trong quá khứ, hoặc hành động đang xảy ra thì bị một hành động khác chen vào.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả hành động đang xảy ra tại một thời điểm xác định trong quá khứ hoặc hành động bị chen ngang."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + was/were + V-ing\nPhủ định: S + was/were not + V-ing\nNghi vấn: Was/Were + S + V-ing?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng khi: hành động đang diễn ra tại thời điểm quá khứ, hai hành động xảy ra song song trong quá khứ, hành động đang xảy ra thì bị chen ngang bởi hành động khác."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "At 8 o'clock last night, at this time yesterday, when, while, as."
+        },
+        {
+          "title": "V. VÍ DỤ",
+          "content": "I was studying when she called.\nThey were playing football at 5pm yesterday.\nWhile I was cooking, he was watching TV."
+        }
+      ]
+    },
+    {
+      "id": "g8",
+      "categoryId": "grammar",
+      "title": "Thì quá khứ hoàn thành",
+      "summary": "Diễn tả hành động xảy ra trước một hành động khác trong quá khứ",
+      "content": "Thì quá khứ hoàn thành dùng để diễn tả hành động xảy ra và hoàn thành trước một hành động khác cũng trong quá khứ.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả hành động xảy ra và hoàn thành trước một thời điểm hoặc hành động khác trong quá khứ."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + had + V3\nPhủ định: S + had not (hadn't) + V3\nNghi vấn: Had + S + V3?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng khi nhắc đến một hành động xảy ra trước một hành động khác trong quá khứ. Hành động xảy ra trước dùng Past Perfect, hành động xảy ra sau dùng Past Simple."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "Before, after, when, by the time, already, just, never, as soon as."
+        },
+        {
+          "title": "V. VÍ DỤ",
+          "content": "She had left before he arrived.\nWhen I got home, they had already eaten dinner.\nHe had never seen snow before he visited Canada."
+        }
+      ]
+    },
+    {
+      "id": "g9",
+      "categoryId": "grammar",
+      "title": "Thì tương lai tiếp diễn",
+      "summary": "Diễn tả hành động đang diễn ra tại một thời điểm trong tương lai",
+      "content": "Thì tương lai tiếp diễn dùng để diễn tả hành động sẽ đang diễn ra tại một thời điểm xác định trong tương lai.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả hành động sẽ đang xảy ra vào một thời điểm nhất định trong tương lai."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + will be + V-ing\nPhủ định: S + will not be + V-ing\nNghi vấn: Will + S + be + V-ing?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng khi mô tả hành động đang xảy ra tại thời điểm cụ thể trong tương lai, hoặc kế hoạch đã được lên lịch sẵn."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "At this time tomorrow, at 8 o'clock next Sunday, in two hours."
+        },
+        {
+          "title": "V. VÍ DỤ",
+          "content": "This time tomorrow, I will be flying to London.\nAt 9pm tonight, she will be studying.\nThey will be having dinner when we arrive."
+        }
+      ]
+    },
+    {
+      "id": "g10",
+      "categoryId": "grammar",
+      "title": "Thì tương lai hoàn thành",
+      "summary": "Diễn tả hành động sẽ hoàn thành trước một thời điểm trong tương lai",
+      "content": "Thì tương lai hoàn thành dùng để diễn tả hành động sẽ kết thúc trước một thời điểm nhất định trong tương lai.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả hành động sẽ hoàn thành trước một mốc thời gian xác định trong tương lai."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + will have + V3\nPhủ định: S + will not have + V3\nNghi vấn: Will + S + have + V3?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng khi muốn nói rằng một hành động sẽ hoàn thành trước một thời điểm hoặc hành động khác trong tương lai."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "By + thời gian tương lai: by tomorrow, by next year, by the time."
+        },
+        {
+          "title": "V. VÍ DỤ",
+          "content": "By next month, she will have graduated.\nI will have finished this book by Friday.\nBy the time you arrive, we will have cooked dinner."
+        }
+      ]
+    },
+    {
+      "id": "g11",
+      "categoryId": "grammar",
+      "title": "Thì hiện tại hoàn thành tiếp diễn",
+      "summary": "Diễn tả hành động bắt đầu ở quá khứ và vẫn đang tiếp tục",
+      "content": "Thì hiện tại hoàn thành tiếp diễn nhấn mạnh tính liên tục của hành động bắt đầu từ quá khứ và vẫn đang diễn ra hoặc vừa mới kết thúc.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Nhấn mạnh tính liên tục, kéo dài của hành động từ quá khứ đến hiện tại và có thể tiếp tục trong tương lai."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + have/has been + V-ing\nPhủ định: S + have/has not been + V-ing\nNghi vấn: Have/Has + S + been + V-ing?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng để nhấn mạnh thời gian kéo dài của hành động, hoặc hành động vừa mới kết thúc và để lại kết quả rõ ràng ở hiện tại."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "For, since, all day, all morning, recently, lately."
+        },
+        {
+          "title": "V. VÍ DỤ",
+          "content": "I have been studying English for 3 years.\nShe has been crying — her eyes are red.\nThey have been waiting since 7 o'clock."
+        }
+      ]
+    },
+    {
+      "id": "g12",
+      "categoryId": "grammar",
+      "title": "Thì quá khứ hoàn thành tiếp diễn",
+      "summary": "Diễn tả hành động liên tục trong quá khứ trước một thời điểm khác",
+      "content": "Thì quá khứ hoàn thành tiếp diễn nhấn mạnh tính liên tục và kéo dài của một hành động trong quá khứ, xảy ra trước một hành động hoặc thời điểm khác cũng trong quá khứ.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả hành động liên tục diễn ra trong quá khứ, xảy ra trước một mốc thời gian khác trong quá khứ."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Khẳng định: S + had been + V-ing\nPhủ định: S + had not been + V-ing\nNghi vấn: Had + S + been + V-ing?"
+        },
+        {
+          "title": "III. CÁCH SỬ DỤNG",
+          "content": "Dùng để nhấn mạnh tính liên tục của hành động trong quá khứ trước một hành động khác, hoặc giải thích nguyên nhân của một sự việc trong quá khứ."
+        },
+        {
+          "title": "IV. DẤU HIỆU NHẬN BIẾT",
+          "content": "For, since, before, when, by the time + thời gian quá khứ."
+        },
+        {
+          "title": "V. VÍ DỤ",
+          "content": "She had been crying for hours before he came home.\nI had been working for 5 hours when the power went out.\nThey had been dating for two years before they got married."
+        }
+      ]
+    },
+    {
+      "id": "g13",
+      "categoryId": "grammar",
+      "title": "Tổng ôn 12 thì tiếng Anh",
+      "summary": "Hệ thống hóa và so sánh toàn bộ 12 thì trong tiếng Anh",
+      "content": "Bài tổng ôn giúp hệ thống hóa 12 thì tiếng Anh, so sánh cách dùng và dấu hiệu nhận biết để tránh nhầm lẫn.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. NHÓM THÌ HIỆN TẠI",
+          "content": "Hiện tại đơn (V/Vs/es): thói quen, sự thật.\nHiện tại tiếp diễn (am/is/are + V-ing): đang xảy ra.\nHiện tại hoàn thành (have/has + V3): kinh nghiệm, kết quả.\nHiện tại hoàn thành tiếp diễn (have/has been + V-ing): liên tục đến nay."
+        },
+        {
+          "title": "II. NHÓM THÌ QUÁ KHỨ",
+          "content": "Quá khứ đơn (V2/ed): đã xảy ra và kết thúc.\nQuá khứ tiếp diễn (was/were + V-ing): đang xảy ra trong quá khứ.\nQuá khứ hoàn thành (had + V3): xảy ra trước một thời điểm quá khứ.\nQuá khứ hoàn thành tiếp diễn (had been + V-ing): liên tục trước mốc quá khứ."
+        },
+        {
+          "title": "III. NHÓM THÌ TƯƠNG LAI",
+          "content": "Tương lai đơn (will + V): quyết định tức thời, dự đoán.\nTương lai tiếp diễn (will be + V-ing): đang xảy ra trong tương lai.\nTương lai hoàn thành (will have + V3): hoàn thành trước mốc tương lai.\nTương lai hoàn thành tiếp diễn (will have been + V-ing): liên tục đến mốc tương lai."
+        },
+        {
+          "title": "IV. MẸO PHÂN BIỆT",
+          "content": "Simple = sự thật/thói quen/kết thúc.\nContinuous = đang diễn ra/liên tục.\nPerfect = đã hoàn thành/kinh nghiệm.\nPerfect Continuous = nhấn mạnh thời gian kéo dài."
+        }
+      ]
+    },
+    {
+      "id": "g14",
+      "categoryId": "grammar",
+      "title": "Câu điều kiện loại 0",
+      "summary": "Diễn tả sự thật hiển nhiên, quy luật tự nhiên",
+      "content": "Câu điều kiện loại 0 dùng để diễn tả những sự thật hiển nhiên, những điều luôn luôn đúng hoặc các quy luật tự nhiên.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả điều luôn đúng trong mọi tình huống: sự thật khoa học, quy luật tự nhiên, thói quen chung."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "If + S + V(hiện tại đơn), S + V(hiện tại đơn)\nLưu ý: có thể thay 'if' bằng 'when'."
+        },
+        {
+          "title": "III. VÍ DỤ",
+          "content": "If you heat water to 100°C, it boils.\nIf it rains, the ground gets wet.\nWhen you mix red and blue, you get purple."
+        }
+      ]
+    },
+    {
+      "id": "g15",
+      "categoryId": "grammar",
+      "title": "Câu điều kiện loại 1",
+      "summary": "Diễn tả điều kiện có thể xảy ra trong tương lai",
+      "content": "Câu điều kiện loại 1 diễn tả những điều kiện có thể thực sự xảy ra trong tương lai và kết quả có thể xảy ra theo.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Diễn tả điều kiện thực tế, có khả năng xảy ra ở hiện tại hoặc tương lai."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "If + S + V(hiện tại đơn), S + will/can/may + V\nMệnh đề If dùng thì hiện tại, mệnh đề chính dùng tương lai."
+        },
+        {
+          "title": "III. LƯU Ý",
+          "content": "Không dùng 'will' trong mệnh đề if.\nCó thể dùng: can, may, might thay cho will."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "If it rains, I will stay home.\nIf you study hard, you will pass the exam.\nIf she calls, tell her I'm busy."
+        }
+      ]
+    },
+    {
+      "id": "g16",
+      "categoryId": "grammar",
+      "title": "Câu điều kiện loại 2",
+      "summary": "Diễn tả điều kiện không có thực ở hiện tại",
+      "content": "Câu điều kiện loại 2 diễn tả điều kiện không có thực hoặc khó có thể xảy ra ở hiện tại hoặc tương lai.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Giả định trái với thực tế ở hiện tại: điều kiện không xảy ra hoặc không thể xảy ra."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "If + S + V(quá khứ đơn), S + would/could/might + V\nVới động từ 'to be': dùng 'were' cho tất cả các ngôi."
+        },
+        {
+          "title": "III. LƯU Ý",
+          "content": "If I were you... (không phải 'was') — đây là cách dùng ngữ pháp chuẩn trong câu điều kiện loại 2."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "If I were rich, I would travel the world.\nIf she knew the answer, she would tell us.\nIf it were Sunday, we could stay in bed."
+        }
+      ]
+    },
+    {
+      "id": "g17",
+      "categoryId": "grammar",
+      "title": "Câu điều kiện loại 3",
+      "summary": "Diễn tả điều kiện không có thực trong quá khứ",
+      "content": "Câu điều kiện loại 3 diễn tả điều kiện không có thực trong quá khứ — những điều đã không xảy ra và hối tiếc về điều đó.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Giả định trái với thực tế trong quá khứ: điều kiện đã không xảy ra và hậu quả theo đó cũng không xảy ra."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "If + S + had + V3, S + would/could/might + have + V3"
+        },
+        {
+          "title": "III. VÍ DỤ",
+          "content": "If I had studied harder, I would have passed the exam.\nIf she had taken the medicine, she would have recovered faster.\nIf they had left earlier, they wouldn't have missed the train."
+        },
+        {
+          "title": "IV. CẢNH BÁO LỖI SAI PHỔ BIẾN",
+          "content": "Sai: If I would have known... → Đúng: If I had known...\nSai: If he had studied, he would passed... → Đúng: he would have passed."
+        }
+      ]
+    },
+    {
+      "id": "g18",
+      "categoryId": "grammar",
+      "title": "Câu điều kiện hỗn hợp",
+      "summary": "Kết hợp điều kiện quá khứ với kết quả hiện tại và ngược lại",
+      "content": "Câu điều kiện hỗn hợp kết hợp mệnh đề điều kiện và mệnh đề kết quả thuộc hai loại thì khác nhau.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. LOẠI 1: QK → HT",
+          "content": "Điều kiện ở quá khứ, kết quả ở hiện tại.\nCấu trúc: If + S + had + V3, S + would + V (now)\nVí dụ: If I had studied medicine, I would be a doctor now."
+        },
+        {
+          "title": "II. LOẠI 2: HT → QK",
+          "content": "Điều kiện ở hiện tại, kết quả ở quá khứ.\nCấu trúc: If + S + V2/were, S + would have + V3\nVí dụ: If she were braver, she would have spoken up."
+        }
+      ]
+    },
+    {
+      "id": "g19",
+      "categoryId": "grammar",
+      "title": "Câu bị động cơ bản",
+      "summary": "Chuyển câu từ chủ động sang bị động",
+      "content": "Câu bị động dùng khi muốn nhấn mạnh vào đối tượng chịu tác động của hành động hơn là người thực hiện hành động.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Câu bị động (Passive Voice) đưa tân ngữ của câu chủ động lên làm chủ ngữ, nhấn mạnh vào đối tượng bị tác động."
+        },
+        {
+          "title": "II. CẤU TRÚC CƠ BẢN",
+          "content": "S (tân ngữ cũ) + be + V3 + (by + O)\nThì của 'be' theo thì của câu chủ động."
+        },
+        {
+          "title": "III. CÁCH CHUYỂN ĐỔI",
+          "content": "1. Đưa tân ngữ của câu chủ động lên làm chủ ngữ.\n2. Thêm 'be' chia theo thì.\n3. Chuyển động từ sang dạng V3.\n4. Thêm 'by + chủ ngữ cũ' (nếu cần)."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "Active: She writes a letter. → Passive: A letter is written by her.\nActive: They built this house. → Passive: This house was built by them."
+        }
+      ]
+    },
+    {
+      "id": "g20",
+      "categoryId": "grammar",
+      "title": "Câu bị động ở các thì khác nhau",
+      "summary": "Cấu trúc bị động áp dụng cho 12 thì tiếng Anh",
+      "content": "Bài này hệ thống hóa cách chuyển đổi câu bị động ở các thì thông dụng nhất trong tiếng Anh.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. THÌ HIỆN TẠI",
+          "content": "Hiện tại đơn: am/is/are + V3\nHiện tại tiếp diễn: am/is/are being + V3\nHiện tại hoàn thành: have/has been + V3"
+        },
+        {
+          "title": "II. THÌ QUÁ KHỨ",
+          "content": "Quá khứ đơn: was/were + V3\nQuá khứ tiếp diễn: was/were being + V3\nQuá khứ hoàn thành: had been + V3"
+        },
+        {
+          "title": "III. THÌ TƯƠNG LAI",
+          "content": "Tương lai đơn: will be + V3\nTương lai hoàn thành: will have been + V3"
+        },
+        {
+          "title": "IV. VÍ DỤ SO SÁNH",
+          "content": "The cake is eaten. (HT đơn)\nThe cake was eaten. (QK đơn)\nThe cake has been eaten. (HT hoàn thành)\nThe cake will be eaten. (TL đơn)"
+        }
+      ]
+    },
+    {
+      "id": "g21",
+      "categoryId": "grammar",
+      "title": "Câu bị động với động từ khuyết thiếu",
+      "summary": "Kết hợp Modal Verbs với cấu trúc bị động",
+      "content": "Câu bị động với động từ khuyết thiếu dùng khi muốn diễn đạt sự cần thiết, khả năng, lời khuyên... trong câu bị động.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. CẤU TRÚC",
+          "content": "S + modal verb + be + V3\nModal verbs: can, could, will, would, shall, should, may, might, must."
+        },
+        {
+          "title": "II. VÍ DỤ",
+          "content": "This work must be done today.\nThe problem can be solved easily.\nThe report should be submitted by Friday.\nThis medicine must not be taken without a prescription."
+        },
+        {
+          "title": "III. BỊ ĐỘNG HOÀN THÀNH VỚI MODAL",
+          "content": "S + modal + have been + V3\nVí dụ: The letter should have been sent yesterday.\nThe mistake could have been avoided."
+        }
+      ]
+    },
+    {
+      "id": "g22",
+      "categoryId": "grammar",
+      "title": "Câu tường thuật — Câu trần thuật",
+      "summary": "Chuyển câu trực tiếp sang gián tiếp dạng trần thuật",
+      "content": "Câu tường thuật (Reported Speech) dùng để thuật lại lời nói của người khác. Câu trần thuật là dạng phổ biến nhất.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐỊNH NGHĨA",
+          "content": "Câu tường thuật là cách diễn đạt lại lời nói, suy nghĩ của người khác mà không dùng dấu ngoặc kép."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "S + said (that) + S + V (lùi thì)\nS + told + O + (that) + S + V (lùi thì)"
+        },
+        {
+          "title": "III. BẢNG LÙI THÌ",
+          "content": "Hiện tại đơn → Quá khứ đơn\nHiện tại tiếp diễn → Quá khứ tiếp diễn\nHiện tại hoàn thành → Quá khứ hoàn thành\nQuá khứ đơn → Quá khứ hoàn thành\nWill → Would / Can → Could / May → Might"
+        },
+        {
+          "title": "IV. THAY ĐỔI ĐẠI TỪ VÀ TRẠNG TỪ",
+          "content": "I → he/she | we → they | here → there | now → then\ntoday → that day | tomorrow → the next day | yesterday → the day before"
+        },
+        {
+          "title": "V. VÍ DỤ",
+          "content": "Direct: \"I am tired,\" she said.\nReported: She said (that) she was tired.\n\nDirect: \"I will call you,\" he told me.\nReported: He told me (that) he would call me."
+        }
+      ]
+    },
+    {
+      "id": "g23",
+      "categoryId": "grammar",
+      "title": "Câu tường thuật — Câu hỏi",
+      "summary": "Chuyển câu hỏi trực tiếp sang gián tiếp",
+      "content": "Câu hỏi gián tiếp có cấu trúc khác với câu hỏi trực tiếp: không đảo ngữ và không dùng dấu hỏi.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. CÂU HỎI Yes/No",
+          "content": "S + asked + (O) + if/whether + S + V\nVí dụ: \"Are you hungry?\" → She asked if I was hungry."
+        },
+        {
+          "title": "II. CÂU HỎI Wh-",
+          "content": "S + asked + (O) + Wh- + S + V\nVí dụ: \"Where do you live?\" → He asked where I lived."
+        },
+        {
+          "title": "III. LƯU Ý QUAN TRỌNG",
+          "content": "Trong câu hỏi gián tiếp: KHÔNG đảo ngữ, KHÔNG dùng do/does/did, KHÔNG có dấu hỏi cuối câu."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "\"What time is it?\" → She asked what time it was.\n\"Do you speak English?\" → He asked if I spoke English.\n\"Why are you late?\" → The teacher asked why I was late."
+        }
+      ]
+    },
+    {
+      "id": "g24",
+      "categoryId": "grammar",
+      "title": "Câu tường thuật — Câu mệnh lệnh",
+      "summary": "Chuyển câu mệnh lệnh và yêu cầu sang gián tiếp",
+      "content": "Câu mệnh lệnh gián tiếp dùng động từ nguyên mẫu có 'to' sau động từ tường thuật.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. CÂU LỆNH KHẲNG ĐỊNH",
+          "content": "S + told/asked/ordered + O + to + V\nVí dụ: \"Open the window!\" → He told me to open the window."
+        },
+        {
+          "title": "II. CÂU LỆNH PHỦ ĐỊNH",
+          "content": "S + told/asked/ordered + O + not to + V\nVí dụ: \"Don't make noise!\" → She told us not to make noise."
+        },
+        {
+          "title": "III. ĐỘNG TỪ THƯỜNG DÙNG",
+          "content": "told, ordered (ra lệnh), asked (yêu cầu), warned (cảnh báo), advised (khuyên), begged (van xin), reminded (nhắc nhở)."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "\"Please sit down.\" → She asked us to sit down.\n\"Don't touch that!\" → He warned me not to touch that.\n\"You should rest.\" → The doctor advised me to rest."
+        }
+      ]
+    },
+    {
+      "id": "g25",
+      "categoryId": "grammar",
+      "title": "Can / Could — Khả năng và xin phép",
+      "summary": "Diễn tả khả năng, sự cho phép và yêu cầu lịch sự",
+      "content": "Can và Could là hai động từ khuyết thiếu thông dụng nhất, dùng để diễn tả khả năng, xin phép và yêu cầu.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. CAN — DIỄN TẢ KHẢ NĂNG",
+          "content": "Khả năng hiện tại: I can swim. / She can speak French.\nXin phép (thân mật): Can I go out?\nYêu cầu: Can you help me?"
+        },
+        {
+          "title": "II. COULD — QUÁ KHỨ VÀ LỊCH SỰ",
+          "content": "Khả năng trong quá khứ: He could run fast when he was young.\nXin phép (lịch sự hơn can): Could I use your phone?\nYêu cầu lịch sự: Could you open the door, please?"
+        },
+        {
+          "title": "III. CAN'T / COULDN'T",
+          "content": "Phủ định khả năng: I can't drive. / She couldn't swim.\nKết luận chắc chắn phủ định: It can't be true! (chắc chắn không đúng)"
+        },
+        {
+          "title": "IV. VÍ DỤ THỰC TẾ",
+          "content": "Can you speak slower, please?\nCould I borrow your pen?\nShe couldn't sleep last night.\nHe can't be at home — his car isn't there."
+        }
+      ]
+    },
+    {
+      "id": "g26",
+      "categoryId": "grammar",
+      "title": "May / Might — Khả năng xảy ra",
+      "summary": "Diễn tả khả năng, sự không chắc chắn và xin phép trang trọng",
+      "content": "May và Might dùng để diễn tả khả năng xảy ra của sự việc trong hiện tại hoặc tương lai.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. MAY — KHẢ NĂNG CAO HƠN",
+          "content": "Khả năng ở hiện tại/tương lai (~50%): It may rain today.\nXin phép trang trọng: May I come in?"
+        },
+        {
+          "title": "II. MIGHT — KHẢ NĂNG THẤP HƠN",
+          "content": "Khả năng thấp hơn (~30%): She might be late.\nHình thức quá khứ của may: He said he might come."
+        },
+        {
+          "title": "III. MAY/MIGHT HAVE + V3",
+          "content": "Suy đoán về quá khứ:\nHe may have missed the bus. (Có thể anh ấy đã lỡ xe)\nShe might have forgotten. (Cô ấy có thể đã quên)"
+        },
+        {
+          "title": "IV. SO SÁNH",
+          "content": "May: 50% khả năng — I may go to the party.\nMight: 30% khả năng — I might go if I'm free.\nCan't: 0% khả năng — It can't be right."
+        }
+      ]
+    },
+    {
+      "id": "g27",
+      "categoryId": "grammar",
+      "title": "Must / Have to — Bắt buộc và nghĩa vụ",
+      "summary": "Diễn tả sự bắt buộc, cần thiết và kết luận chắc chắn",
+      "content": "Must và Have to đều diễn tả sự bắt buộc nhưng có sự khác biệt quan trọng về nguồn gốc của sự bắt buộc.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. MUST — BẮT BUỘC TỪ BÊN TRONG",
+          "content": "Bắt buộc do người nói tự áp đặt hoặc quy tắc chung:\nI must study harder. (tôi tự thấy cần thiết)\nYou must wear a seatbelt."
+        },
+        {
+          "title": "II. HAVE TO — BẮT BUỘC TỪ BÊN NGOÀI",
+          "content": "Bắt buộc do quy định, luật lệ, hoàn cảnh bên ngoài:\nI have to wear a uniform at work. (quy định công ty)\nShe has to take medicine every day. (bác sĩ yêu cầu)"
+        },
+        {
+          "title": "III. MUST — KẾT LUẬN CHẮC CHẮN",
+          "content": "Suy luận logic dựa trên bằng chứng:\nHe must be tired — he worked all day.\nThis must be the right address."
+        },
+        {
+          "title": "IV. MUSTN'T vs DON'T HAVE TO",
+          "content": "Mustn't: tuyệt đối không được làm → You mustn't smoke here.\nDon't have to: không bắt buộc (nhưng được phép) → You don't have to come if you're busy."
+        }
+      ]
+    },
+    {
+      "id": "g28",
+      "categoryId": "grammar",
+      "title": "Should / Ought to — Lời khuyên",
+      "summary": "Diễn tả lời khuyên, điều nên làm và trách nhiệm đạo đức",
+      "content": "Should và Ought to dùng để đưa ra lời khuyên, nói về điều nên làm hoặc trách nhiệm về mặt đạo đức.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. SHOULD — LỜI KHUYÊN",
+          "content": "Đưa ra lời khuyên hoặc gợi ý:\nYou should see a doctor.\nShe should apologize.\nWe shouldn't stay up too late."
+        },
+        {
+          "title": "II. OUGHT TO — TRÁCH NHIỆM ĐẠO ĐỨC",
+          "content": "Diễn tả nghĩa vụ về mặt đạo đức hoặc quy tắc xã hội:\nYou ought to respect your parents.\nHe ought to keep his promise.\n(Ý nghĩa gần giống should nhưng trang trọng hơn)"
+        },
+        {
+          "title": "III. SHOULD HAVE + V3",
+          "content": "Chỉ trách hay hối tiếc về điều đã không làm trong quá khứ:\nI should have studied more. (Lẽ ra tôi phải học nhiều hơn)\nYou shouldn't have said that. (Lẽ ra bạn không nên nói điều đó)"
+        },
+        {
+          "title": "IV. VÍ DỤ THỰC TẾ",
+          "content": "You should drink more water.\nStudents ought to complete homework on time.\nI should have called you earlier. I'm sorry.\nYou shouldn't have spent so much money."
+        }
+      ]
+    },
+    {
+      "id": "g29",
+      "categoryId": "grammar",
+      "title": "Would / Will — Ý muốn và thói quen",
+      "summary": "Diễn tả ý muốn, yêu cầu lịch sự và thói quen trong quá khứ",
+      "content": "Would có nhiều chức năng: thì quá khứ của will, diễn tả thói quen quá khứ, yêu cầu lịch sự và điều kiện.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. WOULD — YÊU CẦU LỊCH SỰ",
+          "content": "Would you like some tea?\nWould you mind closing the door?\nI would like to make a reservation."
+        },
+        {
+          "title": "II. WOULD — THÓI QUEN QUÁ KHỨ",
+          "content": "Diễn tả thói quen hoặc hành động lặp lại trong quá khứ (không còn xảy ra nữa):\nWhen I was young, I would play in the park every day.\nShe would always bring flowers on Sundays."
+        },
+        {
+          "title": "III. WOULD — CÂU ĐIỀU KIỆN",
+          "content": "Dùng trong mệnh đề chính của câu điều kiện loại 2 và 3:\nIf I had money, I would travel.\nIf she had known, she would have helped."
+        },
+        {
+          "title": "IV. WILL — Ý CHÍ VÀ QUYẾT TÂM",
+          "content": "I will do my best!\nI won't give up.\nWill you marry me?"
+        }
+      ]
+    },
+    {
+      "id": "g30",
+      "categoryId": "grammar",
+      "title": "Need / Dare — Cần thiết và dũng cảm",
+      "summary": "Hai động từ khuyết thiếu ít phổ biến nhưng quan trọng",
+      "content": "Need và Dare có thể dùng như động từ thường hoặc động từ khuyết thiếu, với nghĩa và cấu trúc khác nhau.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. NEED — SỰ CẦN THIẾT",
+          "content": "Là modal: Need I tell you again? / You needn't worry.\nLà động từ thường: I need to go. / She doesn't need to come.\nNeed not = don't have to (không bắt buộc)"
+        },
+        {
+          "title": "II. DARE — SỰ DŨNG CẢM",
+          "content": "Là modal: How dare he say that! / Dare she tell the truth?\nLà động từ thường: She doesn't dare (to) speak in public.\nI dare you to try! (thách thức)"
+        },
+        {
+          "title": "III. VÍ DỤ SO SÁNH",
+          "content": "You needn't come. = You don't need to come. (không cần)\nHow dare you talk to me like that! (dám)\nShe didn't dare to look at him. (không dám)"
+        }
+      ]
+    },
+    {
+      "id": "g31",
+      "categoryId": "grammar",
+      "title": "Mệnh đề quan hệ xác định",
+      "summary": "Cung cấp thông tin cần thiết để xác định danh từ",
+      "content": "Mệnh đề quan hệ xác định (Defining Relative Clause) cung cấp thông tin cần thiết để nhận dạng danh từ đứng trước nó.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. CÁC ĐẠI TỪ QUAN HỆ",
+          "content": "Who: thay thế cho người (chủ ngữ)\nWhom: thay thế cho người (tân ngữ)\nWhich: thay thế cho vật/việc\nThat: thay thế cho cả người lẫn vật\nWhose: chỉ sở hữu\nWhere: chỉ nơi chốn\nWhen: chỉ thời gian"
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Noun + who/which/that + V + ...\nVí dụ: The man who lives next door is a doctor.\nThe book that I bought is interesting."
+        },
+        {
+          "title": "III. KHI NÀO BỎ ĐẠI TỪ QUAN HỆ",
+          "content": "Có thể bỏ who/which/that khi nó đóng vai trò TÂN NGỮ trong mệnh đề quan hệ:\nThe book (that) I read was great.\nThe man (who/whom) I met was kind."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "The girl who won the competition is my sister.\nThis is the house where I grew up.\nI remember the day when we first met.\nThe student whose bag was stolen reported it to the police."
+        }
+      ]
+    },
+    {
+      "id": "g32",
+      "categoryId": "grammar",
+      "title": "Mệnh đề quan hệ không xác định",
+      "summary": "Cung cấp thêm thông tin phụ về danh từ đã xác định",
+      "content": "Mệnh đề quan hệ không xác định (Non-defining Relative Clause) chỉ bổ sung thông tin thêm, không thiết yếu để nhận dạng danh từ.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐẶC ĐIỂM",
+          "content": "Luôn được phân tách bởi dấu phẩy.\nKhông dùng 'that' trong loại này.\nNếu bỏ mệnh đề, câu vẫn hoàn chỉnh về nghĩa."
+        },
+        {
+          "title": "II. CẤU TRÚC",
+          "content": "Noun, + who/which/whose/where/when + ..., + V\nVí dụ: My father, who is a doctor, lives in Hanoi.\nThis book, which I bought yesterday, is very good."
+        },
+        {
+          "title": "III. SO SÁNH VỚI XÁC ĐỊNH",
+          "content": "Xác định: The woman who called you is my aunt. (ai gọi? xác định người)\nKhông xác định: My aunt, who called you, is a teacher. (đã biết là ai, chỉ thêm thông tin)"
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "Paris, which is the capital of France, is beautiful.\nMr. Brown, whose daughter is my friend, is very kind.\nI visited Hội An, where I spent my childhood."
+        }
+      ]
+    },
+    {
+      "id": "g33",
+      "categoryId": "grammar",
+      "title": "Rút gọn mệnh đề quan hệ",
+      "summary": "Cách viết ngắn gọn mệnh đề quan hệ bằng cụm V-ing hoặc V3",
+      "content": "Mệnh đề quan hệ có thể được rút gọn thành cụm phân từ (V-ing hoặc V3/ed) để câu ngắn gọn và tự nhiên hơn.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. RÚT GỌN BẰNG V-ING (Hiện tại phân từ)",
+          "content": "Khi động từ trong mệnh đề quan hệ ở thể chủ động:\nThe man who is standing there → The man standing there.\nStudents who study hard → Students studying hard."
+        },
+        {
+          "title": "II. RÚT GỌN BẰNG V3/ED (Quá khứ phân từ)",
+          "content": "Khi động từ trong mệnh đề quan hệ ở thể bị động:\nThe car which was stolen → The stolen car.\nThe letter which was written by him → The letter written by him."
+        },
+        {
+          "title": "III. RÚT GỌN BẰNG TO + V",
+          "content": "Khi danh từ đứng trước có các từ: first, last, only, the + thứ tự:\nHe was the first man who walked on the moon.\n→ He was the first man to walk on the moon."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "The girl who is singing on stage → The girl singing on stage.\nThe road which was built in 1990 → The road built in 1990.\nShe is the only person who can help us → the only person to help us."
+        }
+      ]
+    },
+    {
+      "id": "g34",
+      "categoryId": "grammar",
+      "title": "Danh từ — Số ít và số nhiều",
+      "summary": "Quy tắc thêm -s/-es và các danh từ bất quy tắc",
+      "content": "Danh từ số nhiều trong tiếng Anh được hình thành theo nhiều quy tắc khác nhau, bao gồm cả danh từ bất quy tắc.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. QUY TẮC THÊM -S",
+          "content": "Đa số danh từ thêm -s: book → books, dog → dogs, car → cars."
+        },
+        {
+          "title": "II. QUY TẮC THÊM -ES",
+          "content": "Tận cùng bằng -s, -ss, -sh, -ch, -x, -z: bus → buses, watch → watches, box → boxes."
+        },
+        {
+          "title": "III. QUY TẮC ĐẶC BIỆT",
+          "content": "Tận cùng -y (trước phụ âm) → đổi -y thành -ies: baby → babies, city → cities.\nTận cùng -f/-fe → đổi thành -ves: leaf → leaves, wife → wives.\nTận cùng -o: piano → pianos, tomato → tomatoes."
+        },
+        {
+          "title": "IV. DANH TỪ BẤT QUY TẮC",
+          "content": "man → men | woman → women | child → children\nfoot → feet | tooth → teeth | mouse → mice\nsheep → sheep | fish → fish | deer → deer"
+        }
+      ]
+    },
+    {
+      "id": "g35",
+      "categoryId": "grammar",
+      "title": "Mạo từ a / an / the",
+      "summary": "Quy tắc sử dụng mạo từ xác định và không xác định",
+      "content": "Mạo từ là một trong những phần dễ nhầm nhất của tiếng Anh. Bài học này giúp bạn phân biệt và sử dụng đúng a, an, the.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. A / AN — MẠO TỪ KHÔNG XÁC ĐỊNH",
+          "content": "Dùng trước danh từ đếm được số ít, đề cập lần đầu.\nA: trước phụ âm → a book, a cat, a university.\nAn: trước nguyên âm (a, e, i, o, u) → an apple, an hour, an umbrella."
+        },
+        {
+          "title": "II. THE — MẠO TỪ XÁC ĐỊNH",
+          "content": "Dùng khi: đã đề cập trước đó, chỉ một thứ duy nhất, chỉ điều hiển nhiên trong ngữ cảnh.\nVí dụ: the sun, the moon, the president, the book I told you about."
+        },
+        {
+          "title": "III. KHÔNG DÙNG MẠO TỪ",
+          "content": "Trước danh từ số nhiều tổng quát: Dogs are loyal.\nTrước danh từ không đếm được tổng quát: Water is important.\nTrước tên riêng: Vietnam, Ha Noi, Mary."
+        },
+        {
+          "title": "IV. LỖI SAI PHỔ BIẾN",
+          "content": "Sai: I am a engineer. → Đúng: I am an engineer.\nSai: She is the best student of a class. → Đúng: of the class.\nSai: The life is beautiful. → Đúng: Life is beautiful."
+        }
+      ]
+    },
+    {
+      "id": "g36",
+      "categoryId": "grammar",
+      "title": "Tính từ và vị trí của tính từ",
+      "summary": "Cách dùng và vị trí đặt tính từ trong câu tiếng Anh",
+      "content": "Tính từ (Adjective) bổ nghĩa cho danh từ và có thể đứng trước danh từ hoặc sau động từ liên kết.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. VỊ TRÍ TRƯỚC DANH TỪ",
+          "content": "Tính từ thường đứng trước danh từ mà nó bổ nghĩa:\na beautiful girl, a red apple, a tall man, the old house."
+        },
+        {
+          "title": "II. VỊ TRÍ SAU ĐỘNG TỪ LIÊN KẾT",
+          "content": "Sau: be, seem, look, feel, smell, taste, sound, become, get:\nShe is beautiful. / He looks tired. / The food smells good."
+        },
+        {
+          "title": "III. THỨ TỰ CÁC TÍNH TỪ",
+          "content": "Khi có nhiều tính từ, thứ tự là: Quantity → Opinion → Size → Age → Shape → Color → Origin → Material → Purpose\nVí dụ: a beautiful small old round green French silver cooking pot."
+        },
+        {
+          "title": "IV. TÍNH TỪ KÉP",
+          "content": "Tính từ ghép bằng dấu gạch ngang:\na well-known author, a five-year-old child, a short-haired dog."
+        }
+      ]
+    },
+    {
+      "id": "g37",
+      "categoryId": "grammar",
+      "title": "Trạng từ và cách dùng",
+      "summary": "Bổ nghĩa cho động từ, tính từ và các trạng từ khác",
+      "content": "Trạng từ (Adverb) bổ nghĩa cho động từ, tính từ hoặc trạng từ khác, cho biết thông tin về cách thức, thời gian, nơi chốn, mức độ...",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. PHÂN LOẠI TRẠNG TỪ",
+          "content": "Trạng từ cách thức (How): quickly, carefully, slowly, well.\nTrạng từ nơi chốn (Where): here, there, everywhere, abroad.\nTrạng từ thời gian (When): now, soon, yesterday, already.\nTrạng từ tần suất (How often): always, usually, often, never.\nTrạng từ mức độ (How much): very, quite, rather, extremely."
+        },
+        {
+          "title": "II. CÁCH HÌNH THÀNH",
+          "content": "Đa số: tính từ + -ly: quick → quickly, careful → carefully.\nBất quy tắc: good → well, fast → fast, hard → hard, late → late.\nLưu ý: hardly ≠ hard | lately ≠ late | nearly ≠ near"
+        },
+        {
+          "title": "III. VỊ TRÍ TRONG CÂU",
+          "content": "Trạng từ tần suất đứng: trước động từ thường, sau be/modal.\nTrạng từ cách thức thường đứng sau động từ hoặc tân ngữ.\nTrạng từ thời gian/nơi chốn thường đứng đầu hoặc cuối câu."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "She always studies hard.\nHe drives carefully.\nI have never been to Japan.\nThey arrived here yesterday.\nThe music is extremely loud."
+        }
+      ]
+    },
+    {
+      "id": "g38",
+      "categoryId": "grammar",
+      "title": "Giới từ thông dụng",
+      "summary": "In, on, at, by, for, with, about và cách sử dụng",
+      "content": "Giới từ (Preposition) là những từ chỉ quan hệ về thời gian, nơi chốn, cách thức... giữa các từ trong câu.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. GIỚI TỪ CHỈ THỜI GIAN",
+          "content": "At: giờ cụ thể → at 8 o'clock, at noon, at night.\nOn: ngày, thứ → on Monday, on July 12, on my birthday.\nIn: tháng, năm, mùa, buổi → in June, in 2024, in summer, in the morning."
+        },
+        {
+          "title": "II. GIỚI TỪ CHỈ NƠI CHỐN",
+          "content": "At: điểm cụ thể → at the station, at home, at school.\nOn: bề mặt → on the table, on the wall, on the floor.\nIn: bên trong → in the box, in the city, in Vietnam."
+        },
+        {
+          "title": "III. GIỚI TỪ KHÁC",
+          "content": "By: bởi, bằng cách → by car, by hand, by 5pm.\nFor: trong khoảng thời gian → for 3 hours, for years.\nWith: cùng với, bằng → with a knife, with my friends.\nAbout: về → a book about history.\nOf: của → a cup of tea."
+        },
+        {
+          "title": "IV. LỖI THƯỜNG GẶP",
+          "content": "Sai: I'll meet you in Monday. → Đúng: on Monday.\nSai: She arrived to Vietnam. → Đúng: arrived in Vietnam.\nSai: I am waiting since 2 hours. → Đúng: for 2 hours."
+        }
+      ]
+    },
+    {
+      "id": "g39",
+      "categoryId": "grammar",
+      "title": "Đại từ — Các loại đại từ",
+      "summary": "Đại từ nhân xưng, sở hữu, phản thân và chỉ định",
+      "content": "Đại từ (Pronoun) thay thế cho danh từ trong câu để tránh lặp lại. Tiếng Anh có nhiều loại đại từ khác nhau.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐẠI TỪ NHÂN XƯNG",
+          "content": "Chủ ngữ: I, you, he, she, it, we, they.\nTân ngữ: me, you, him, her, it, us, them.\nVí dụ: She loves him. / Tell me the truth."
+        },
+        {
+          "title": "II. ĐẠI TỪ SỞ HỮU",
+          "content": "Đứng độc lập (không kèm danh từ): mine, yours, his, hers, its, ours, theirs.\nVí dụ: This book is mine. / That car is hers."
+        },
+        {
+          "title": "III. ĐẠI TỪ PHẢN THÂN",
+          "content": "Myself, yourself, himself, herself, itself, ourselves, yourselves, themselves.\nDùng khi chủ ngữ và tân ngữ là cùng một người:\nI hurt myself. / She taught herself English."
+        },
+        {
+          "title": "IV. ĐẠI TỪ CHỈ ĐỊNH",
+          "content": "This (số ít, gần), these (số nhiều, gần).\nThat (số ít, xa), those (số nhiều, xa).\nThis is my bag. / Those are beautiful flowers."
+        }
+      ]
+    },
+    {
+      "id": "g40",
+      "categoryId": "grammar",
+      "title": "Gerund vs Infinitive",
+      "summary": "Khi nào dùng V-ing, khi nào dùng To + V",
+      "content": "Gerund (V-ing) và Infinitive (To + V) đều có thể là chủ ngữ hoặc tân ngữ trong câu, nhưng cách dùng chúng khác nhau tùy theo động từ đứng trước.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. GERUND (V-ING)",
+          "content": "Dùng sau các động từ: enjoy, finish, avoid, mind, suggest, keep, admit, deny, consider, practice.\nVí dụ: I enjoy reading books. / She avoided talking to him.\nLàm chủ ngữ: Swimming is good for your health."
+        },
+        {
+          "title": "II. INFINITIVE (TO + V)",
+          "content": "Dùng sau các động từ: want, need, hope, plan, decide, agree, refuse, fail, manage, promise, seem.\nVí dụ: I want to travel. / She decided to quit. / He managed to escape."
+        },
+        {
+          "title": "III. ĐỘNG TỪ DÙNG CẢ HAI (Nghĩa khác nhau)",
+          "content": "Remember + V-ing: nhớ lại điều đã làm.\nRemember + to V: nhớ làm điều gì đó.\nStop + V-ing: ngừng làm gì.\nStop + to V: dừng lại để làm gì khác.\nTry + V-ing: thử xem sao.\nTry + to V: cố gắng làm."
+        },
+        {
+          "title": "IV. VÍ DỤ PHÂN BIỆT",
+          "content": "I remember meeting her. (Tôi nhớ là đã gặp cô ấy)\nI remember to call her. (Tôi nhớ phải gọi cho cô ấy)\nHe stopped smoking. (Anh ấy bỏ thuốc)\nHe stopped to smoke. (Anh ấy dừng lại để hút thuốc)"
+        }
+      ]
+    },
+    {
+      "id": "g41",
+      "categoryId": "grammar",
+      "title": "Cụm động từ (Phrasal Verbs) phổ biến",
+      "summary": "Động từ ghép với giới từ/trạng từ tạo nghĩa mới",
+      "content": "Phrasal Verbs là sự kết hợp của động từ với giới từ hoặc trạng từ để tạo ra nghĩa hoàn toàn mới, rất phổ biến trong tiếng Anh giao tiếp.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. NHÓM GET",
+          "content": "Get up: thức dậy | Get on: lên (xe) | Get off: xuống (xe)\nGet along with: hòa thuận | Get over: vượt qua | Get rid of: thoát khỏi\nGet back: trở lại | Get away: trốn thoát"
+        },
+        {
+          "title": "II. NHÓM LOOK",
+          "content": "Look up: tra cứu | Look after: trông nom | Look forward to: mong chờ\nLook out: coi chừng | Look into: điều tra | Look for: tìm kiếm"
+        },
+        {
+          "title": "III. NHÓM GIVE / TAKE",
+          "content": "Give up: bỏ cuộc | Give in: đầu hàng | Give out: phân phát\nTake off: cất cánh, cởi ra | Take on: tiếp nhận | Take up: bắt đầu (sở thích)\nTake after: giống (ai đó) | Take back: lấy lại"
+        },
+        {
+          "title": "IV. NHÓM PUT / TURN",
+          "content": "Put on: mặc vào | Put off: hoãn lại | Put up with: chịu đựng\nTurn on: bật | Turn off: tắt | Turn up: xuất hiện | Turn down: từ chối"
+        }
+      ]
+    },
+    {
+      "id": "g42",
+      "categoryId": "grammar",
+      "title": "Câu đảo ngữ",
+      "summary": "Đảo vị trí chủ ngữ và động từ để nhấn mạnh",
+      "content": "Câu đảo ngữ (Inversion) là cấu trúc câu trong đó chủ ngữ và động từ bị đảo vị trí, dùng để nhấn mạnh hoặc trong văn viết trang trọng.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ĐẢO NGỮ VỚI TRẠNG TỪ PHỦ ĐỊNH",
+          "content": "Never, Rarely, Seldom, Little, Hardly, No sooner, Not only... but also\nNever + have + S + V3: Never have I seen such beauty.\nHardly had S + V3 when S + V2: Hardly had I arrived when it started raining."
+        },
+        {
+          "title": "II. ĐẢO NGỮ VỚI ONLY",
+          "content": "Only then, Only when, Only after, Only if, Only by + đảo ngữ:\nOnly then did I realize my mistake.\nOnly by working hard can you succeed."
+        },
+        {
+          "title": "III. ĐẢO NGỮ VỚI SO / SUCH",
+          "content": "So + adj/adv + that + đảo ngữ:\nSo tired was she that she fell asleep immediately.\nSuch was his surprise that he couldn't speak."
+        },
+        {
+          "title": "IV. VÍ DỤ THỰC TẾ",
+          "content": "Not only is she beautiful, but she is also intelligent.\nNo sooner had I left than it started raining.\nSeldom do I eat fast food.\nOnly in Vietnam can you find this dish."
+        }
+      ]
+    },
+    {
+      "id": "g43",
+      "categoryId": "grammar",
+      "title": "Câu chẻ (Cleft Sentences)",
+      "summary": "Nhấn mạnh một thành phần trong câu bằng It is... that",
+      "content": "Câu chẻ dùng để nhấn mạnh một thành phần nào đó trong câu bằng cách tách câu ra với cấu trúc 'It is/was... that/who'.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. IT-CLEFT",
+          "content": "Cấu trúc: It is/was + thành phần nhấn mạnh + that/who + phần còn lại\nBình thường: John gave Mary a book yesterday.\nNhấn mạnh John: It was John who gave Mary a book.\nNhấn mạnh Mary: It was Mary that John gave the book to.\nNhấn mạnh thời gian: It was yesterday that John gave Mary the book."
+        },
+        {
+          "title": "II. WH-CLEFT (Pseudo-cleft)",
+          "content": "Cấu trúc: What + S + V + be + thành phần nhấn mạnh\nWhat I need is a good rest.\nWhat she wants is to travel abroad.\nWhat surprised me was his reaction."
+        },
+        {
+          "title": "III. VÍ DỤ",
+          "content": "It is hard work that leads to success.\nIt was the noise that woke me up.\nWhat I enjoy most is reading.\nWhat we need is more time."
+        }
+      ]
+    },
+    {
+      "id": "g44",
+      "categoryId": "grammar",
+      "title": "Mệnh đề nhượng bộ",
+      "summary": "Although, Even though, Despite, In spite of...",
+      "content": "Mệnh đề nhượng bộ diễn tả sự tương phản: dù có một điều kiện bất lợi nhưng kết quả vẫn xảy ra.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. ALTHOUGH / EVEN THOUGH / THOUGH",
+          "content": "Theo sau là mệnh đề (S + V):\nAlthough it was raining, we went out.\nEven though she was tired, she kept working.\nThough he is young, he is very responsible."
+        },
+        {
+          "title": "II. DESPITE / IN SPITE OF",
+          "content": "Theo sau là danh từ/cụm danh từ hoặc V-ing:\nDespite the rain, we went out.\nIn spite of being tired, she kept working.\nDespite his age, he runs fast."
+        },
+        {
+          "title": "III. HOWEVER / NEVERTHELESS / YET",
+          "content": "Dùng để nối hai câu độc lập:\nIt was raining. However, we went out.\nShe was tired. Nevertheless, she finished the project.\nHe studied hard, yet he didn't pass."
+        },
+        {
+          "title": "IV. VÍ DỤ SO SÁNH",
+          "content": "Although he is rich, he is not happy.\n= Despite being rich, he is not happy.\n= In spite of his wealth, he is not happy.\n= He is rich. However, he is not happy."
+        }
+      ]
+    },
+    {
+      "id": "g45",
+      "categoryId": "grammar",
+      "title": "Liên từ và Từ nối",
+      "summary": "And, but, or, so, because, therefore và các từ nối quan trọng",
+      "content": "Liên từ và từ nối giúp kết nối các từ, cụm từ và mệnh đề lại với nhau, tạo nên sự liền mạch trong văn bản.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. LIÊN TỪ KẾT HỢP (FANBOYS)",
+          "content": "For (vì), And (và), Nor (cũng không), But (nhưng), Or (hoặc), Yet (tuy nhiên), So (vì vậy).\nI was tired, but I continued working.\nShe likes tea and coffee."
+        },
+        {
+          "title": "II. LIÊN TỪ PHỤ THUỘC",
+          "content": "Thời gian: when, while, after, before, as soon as, until.\nNguyên nhân: because, since, as.\nĐiều kiện: if, unless, provided that.\nNhượng bộ: although, even though, whereas."
+        },
+        {
+          "title": "III. TỪ NỐI THÔNG DỤNG",
+          "content": "Thêm thông tin: furthermore, moreover, in addition, besides.\nTương phản: however, on the other hand, in contrast.\nKết quả: therefore, as a result, consequently, thus.\nTóm lại: in conclusion, to sum up, overall."
+        },
+        {
+          "title": "IV. VÍ DỤ",
+          "content": "He worked hard; therefore, he got promoted.\nShe studies French. Moreover, she learns Spanish.\nI like the design. However, the price is too high.\nIn conclusion, regular exercise is beneficial for health."
+        }
+      ]
+    },
+    {
+      "id": "g46",
+      "categoryId": "grammar",
+      "title": "Wish / If only — Ước muốn",
+      "summary": "Diễn tả ước muốn về thực tế hiện tại và quá khứ",
+      "content": "Wish và If only dùng để diễn tả ước muốn về những điều không có thực ở hiện tại hoặc hối tiếc về quá khứ.",
+      "isCompleted": false,
+      "sections": [
+        {
+          "title": "I. WISH + QUÁ KHỨ ĐƠN (Ước hiện tại)",
+          "content": "Diễn tả ước muốn trái với thực tế hiện tại:\nI wish I had a car. (Thực tế: tôi không có xe)\nShe wishes she were taller. (Thực tế: cô ấy không cao)\nI wish I could fly. (Thực tế: tôi không thể bay)"
+        },
+        {
+          "title": "II. WISH + QUÁ KHỨ HOÀN THÀNH (Hối tiếc quá khứ)",
+          "content": "Diễn tả hối tiếc về điều đã không xảy ra trong quá khứ:\nI wish I had studied harder. (Lẽ ra tôi phải học chăm hơn)\nShe wishes she hadn't said that. (Lẽ ra cô ấy không nên nói điều đó)"
+        },
+        {
+          "title": "III. WISH + WOULD (Mong muốn thay đổi)",
+          "content": "Diễn tả mong muốn ai đó thay đổi hành vi (thường có tính phàn nàn):\nI wish you would stop making noise.\nShe wishes it would stop raining."
+        },
+        {
+          "title": "IV. IF ONLY",
+          "content": "Tương tự wish nhưng mạnh hơn, nhấn mạnh hơn:\nIf only I had more time!\nIf only she had told me the truth.\nIf only I could speak English fluently!"
+        }
+      ]
+    }
+  ],
+  "conversation_lines": [
+    { "id": "conv_greeting_0",  "topicId": "conv_greeting",  "speaker": "Anna",     "english": "Hi, my name is Anna. What is your name?",                              "vietnamese": "Chào, tôi tên là Anna. Bạn tên là gì?",                                "masteryLevel": "Mới" },
+    { "id": "conv_greeting_1",  "topicId": "conv_greeting",  "speaker": "Ben",       "english": "Hello Anna, I am Ben. Nice to meet you.",                               "vietnamese": "Chào Anna, tôi là Ben. Rất vui được gặp bạn.",                         "masteryLevel": "Mới" },
+    { "id": "conv_greeting_2",  "topicId": "conv_greeting",  "speaker": "Anna",      "english": "Nice to meet you too. How are you today?",                               "vietnamese": "Tôi cũng rất vui được gặp bạn. Hôm nay bạn khỏe không?",                "masteryLevel": "Mới" },
+    { "id": "conv_greeting_3",  "topicId": "conv_greeting",  "speaker": "Ben",       "english": "I am good, thank you. How about you?",                                   "vietnamese": "Tôi khỏe, cảm ơn bạn. Còn bạn thì sao?",                                "masteryLevel": "Mới" },
+    { "id": "conv_greeting_4",  "topicId": "conv_greeting",  "speaker": "Anna",      "english": "I am great. Welcome to our English class.",                              "vietnamese": "Tôi rất tốt. Chào mừng bạn đến với lớp tiếng Anh của chúng ta.",        "masteryLevel": "Mới" },
+    { "id": "conv_restaurant_0","topicId": "conv_restaurant","speaker": "Waiter",    "english": "Good evening. Are you ready to order?",                                  "vietnamese": "Chào buổi tối. Quý khách đã sẵn sàng gọi món chưa?",                   "masteryLevel": "Mới" },
+    { "id": "conv_restaurant_1","topicId": "conv_restaurant","speaker": "Customer",  "english": "Yes, can I have the menu, please?",                                      "vietnamese": "Rồi, cho tôi xin thực đơn được không?",                                  "masteryLevel": "Mới" },
+    { "id": "conv_restaurant_2","topicId": "conv_restaurant","speaker": "Waiter",    "english": "Of course. Here you are.",                                               "vietnamese": "Tất nhiên rồi. Của quý khách đây.",                                     "masteryLevel": "Mới" },
+    { "id": "conv_restaurant_3","topicId": "conv_restaurant","speaker": "Customer",  "english": "I would like chicken rice and a glass of water.",                        "vietnamese": "Tôi muốn cơm gà và một ly nước.",                                       "masteryLevel": "Mới" },
+    { "id": "conv_restaurant_4","topicId": "conv_restaurant","speaker": "Waiter",    "english": "Sure. Your food will be ready soon.",                                    "vietnamese": "Vâng. Món ăn của quý khách sẽ có sớm.",                                 "masteryLevel": "Mới" },
+    { "id": "conv_shopping_0",  "topicId": "conv_shopping",  "speaker": "Customer",  "english": "Excuse me, how much does this shirt cost?",                              "vietnamese": "Xin lỗi, chiếc áo này giá bao nhiêu?",                                  "masteryLevel": "Mới" },
+    { "id": "conv_shopping_1",  "topicId": "conv_shopping",  "speaker": "Seller",    "english": "It is twenty dollars.",                                                  "vietnamese": "Nó có giá hai mươi đô la.",                                             "masteryLevel": "Mới" },
+    { "id": "conv_shopping_2",  "topicId": "conv_shopping",  "speaker": "Customer",  "english": "Do you have it in blue?",                                                "vietnamese": "Bạn có màu xanh không?",                                                "masteryLevel": "Mới" },
+    { "id": "conv_shopping_3",  "topicId": "conv_shopping",  "speaker": "Seller",    "english": "Yes, we do. What size do you need?",                                     "vietnamese": "Có. Bạn cần cỡ nào?",                                                   "masteryLevel": "Mới" },
+    { "id": "conv_shopping_4",  "topicId": "conv_shopping",  "speaker": "Customer",  "english": "Medium, please.",                                                        "vietnamese": "Cỡ vừa, làm ơn.",                                                      "masteryLevel": "Mới" },
+    { "id": "conv_direction_0", "topicId": "conv_direction", "speaker": "Tourist",   "english": "Excuse me, can you tell me how to get to the museum?",                   "vietnamese": "Xin lỗi, bạn có thể chỉ tôi cách đi đến bảo tàng không?",               "masteryLevel": "Mới" },
+    { "id": "conv_direction_1", "topicId": "conv_direction", "speaker": "Local",     "english": "Sure. Go straight for two blocks, then turn left.",                       "vietnamese": "Chắc chắn rồi. Đi thẳng qua hai ngã tư, sau đó rẽ trái.",              "masteryLevel": "Mới" },
+    { "id": "conv_direction_2", "topicId": "conv_direction", "speaker": "Tourist",   "english": "Is it far from here?",                                                   "vietnamese": "Nó có xa đây không?",                                                  "masteryLevel": "Mới" },
+    { "id": "conv_direction_3", "topicId": "conv_direction", "speaker": "Local",     "english": "No, it's about a five-minute walk.",                                      "vietnamese": "Không, mất khoảng năm phút đi bộ thôi.",                                "masteryLevel": "Mới" },
+    { "id": "conv_direction_4", "topicId": "conv_direction", "speaker": "Tourist",   "english": "Thank you so much for your help.",                                       "vietnamese": "Cảm ơn bạn rất nhiều vì đã giúp đỡ.",                                  "masteryLevel": "Mới" },
+    { "id": "conv_doctor_0",    "topicId": "conv_doctor",    "speaker": "Doctor",    "english": "Hello, what seems to be the problem today?",                              "vietnamese": "Xin chào, hôm nay bạn có vấn đề gì về sức khỏe vậy?",                  "masteryLevel": "Mới" },
+    { "id": "conv_doctor_1",    "topicId": "conv_doctor",    "speaker": "Patient",   "english": "I have a bad headache and a sore throat.",                                "vietnamese": "Tôi bị đau đầu nặng và đau họng.",                                     "masteryLevel": "Mới" },
+    { "id": "conv_doctor_2",    "topicId": "conv_doctor",    "speaker": "Doctor",    "english": "Do you have a fever?",                                                    "vietnamese": "Bạn có bị sốt không?",                                                 "masteryLevel": "Mới" },
+    { "id": "conv_doctor_3",    "topicId": "conv_doctor",    "speaker": "Patient",   "english": "Yes, my temperature was 38 degrees this morning.",                        "vietnamese": "Có, nhiệt độ cơ thể của tôi sáng nay là 38 độ.",                       "masteryLevel": "Mới" },
+    { "id": "conv_doctor_4",    "topicId": "conv_doctor",    "speaker": "Doctor",    "english": "Take this medicine twice a day and get some rest.",                       "vietnamese": "Hãy uống thuốc này hai lần một ngày và nghỉ ngơi nhé.",                "masteryLevel": "Mới" }
+  ]
+}

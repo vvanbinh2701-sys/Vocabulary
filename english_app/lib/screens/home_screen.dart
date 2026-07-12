@@ -54,42 +54,53 @@ class HomeScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Xin chào, ${app.userName ?? "bạn"} 👋',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        const Text(
-                          'Sẵn sàng học hôm nay chưa?',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: AppColors.textGrey,
-                            fontSize: 13,
-                          ),
-                        ),
-                      ],
-                    ),
+              child: Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [AppColors.primaryGreen, AppColors.blue],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  const SizedBox(width: 12),
-                  _StreakBadge(streak: app.currentStreak),
-                ],
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Xin chào, ${app.userName ?? "bạn"} 👋',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Hãy chọn một lộ trình học phù hợp hôm nay.',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 13,
+                              height: 1.4,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    _StreakBadge(streak: app.currentStreak),
+                  ],
+                ),
               ),
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+            padding: const EdgeInsets.fromLTRB(20, 18, 20, 8),
             sliver: SliverToBoxAdapter(
               child: Text(
                 'Học theo đề tài',

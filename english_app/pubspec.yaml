@@ -13,6 +13,10 @@ dependencies:
   cupertino_icons: ^1.0.6
   firebase_core: ^4.11.0
   firebase_auth: ^6.5.4
+  cloud_firestore: ^6.6.0
+  firebase_storage: ^13.4.3
+  google_generative_ai: ^0.4.6
+  http: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +25,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/firebase_seed/firestore_data.json
