@@ -39,17 +39,6 @@ class GeminiService {
 
   /// Hội thoại fallback khi API không khả dụng
   String _buildFallbackDialogue(String word) {
-    return 'A: Have you heard about "$word" before?\n'
-        'Bạn đã từng nghe về "$word" chưa?\n'
-        'B: Yes! I use "$word" quite often in my daily life.\n'
-        'Có chứ! Tôi dùng "$word" khá thường xuyên trong cuộc sống.\n'
-        'A: Can you give me an example with "$word"?\n'
-        'Bạn có thể cho tôi một ví dụ với "$word" không?\n'
-        'B: Sure! "I really like $word because it is very useful."\n'
-        'Tất nhiên! "Tôi rất thích $word vì nó rất hữu ích."\n'
-        'A: That makes sense. I will try to use "$word" more often.\n'
-        'Điều đó hợp lý đấy. Tôi sẽ cố dùng "$word" thường xuyên hơn.\n'
-        'B: Great! Practice makes perfect.\n'
-        'Tuyệt! Luyện tập sẽ giúp bạn hoàn thiện hơn.';
+    return 'Không có đoạn hội thoại phù hợp';
   }
 }

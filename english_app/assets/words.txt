@@ -1,0 +1,121 @@
+# ============================================
+# Danh sách từ vựng cần tải ảnh
+# (Trích từ Firebase: assets/firebase_seed/firestore_data.json)
+# ============================================
+
+# ---- Chủ đề: Gia đình (vocab_family) ----
+Family
+Mother
+Father
+Sibling
+Grandfather
+
+# ---- Chủ đề: Đồ ăn (vocab_food) ----
+Apple
+Rice
+Noodle
+Bread
+Cheese
+
+# ---- Chủ đề: Du lịch (vocab_travel) ----
+Travel
+Airport
+Passport
+Luggage
+Hotel
+
+# ---- Chủ đề: Trường học (vocab_school) ----
+School
+Teacher
+Homework
+Classmate
+Library
+
+# ---- Chủ đề: Nghề nghiệp (vocab_jobs) ----
+Doctor
+Engineer
+Artist
+Pilot
+Chef
+
+# ---- Chủ đề: Động vật (vocab_animals) ----
+Lion
+Elephant
+Monkey
+Rabbit
+Dolphin
+
+# ============================================
+# 50 TỪ VỰNG MỚI (mở rộng)
+# ============================================
+
+# ---- Chủ đề: Thời tiết (vocab_weather) ----
+Sun
+Rain
+Wind
+Cloud
+Storm
+Snow
+
+# ---- Chủ đề: Cơ thể (vocab_body) ----
+Head
+Hand
+Eye
+Foot
+Heart
+Mouth
+
+# ---- Chủ đề: Màu sắc (vocab_colors) ----
+Red
+Blue
+Green
+Yellow
+Black
+White
+
+# ---- Chủ đề: Quần áo (vocab_clothing) ----
+Shirt
+Pants
+Shoes
+Hat
+Dress
+Jacket
+
+# ---- Chủ đề: Thiên nhiên (vocab_nature) ----
+Tree
+Flower
+River
+Mountain
+Ocean
+Forest
+
+# ---- Chủ đề: Thể thao (vocab_sports) ----
+Football
+Tennis
+Swimming
+Basketball
+Running
+Gym
+
+# ---- Chủ đề: Công nghệ (vocab_tech) ----
+Computer
+Phone
+Internet
+Camera
+Robot
+Screen
+
+# ---- Chủ đề: Thành phố (vocab_city) ----
+Park
+Bridge
+Museum
+Market
+Street
+Station
+
+# ---- Chủ đề: Đồ uống (vocab_drinks) ----
+Water
+Milk
+Coffee
+Tea
+Juice
