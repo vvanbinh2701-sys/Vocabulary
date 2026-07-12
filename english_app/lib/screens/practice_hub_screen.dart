@@ -26,7 +26,8 @@ class _PracticeHubScreenState extends State<PracticeHubScreen> {
       _seedResult = '';
     });
 
-    final vocabWords = app.sampleVocab.where((v) => v.category == 'vocab').toList();
+    final vocabWords =
+        app.sampleVocab.where((v) => v.category == 'vocab').toList();
     final seeder = ImageSeeder();
     final result = await seeder.seedImages(vocabWords);
 
@@ -53,7 +54,8 @@ class _PracticeHubScreenState extends State<PracticeHubScreen> {
     final allWords = app.sampleVocab;
     final words = _filteredWords(allWords);
     final newCount = allWords.where((v) => v.masteryLevel == 'Mới').length;
-    final masteredCount = allWords.where((v) => v.masteryLevel == 'Đã thuộc').length;
+    final masteredCount =
+        allWords.where((v) => v.masteryLevel == 'Đã thuộc').length;
 
     return SafeArea(
       child: ListView(
@@ -177,7 +179,9 @@ class _PracticeHubScreenState extends State<PracticeHubScreen> {
               padding: const EdgeInsets.only(bottom: 12),
               child: Text(_seedResult,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: AppColors.primaryGreen, fontWeight: FontWeight.w700)),
+                  style: const TextStyle(
+                      color: AppColors.primaryGreen,
+                      fontWeight: FontWeight.w700)),
             ),
           GestureDetector(
             onTap: _isSeeding ? null : () => _seedImages(app),
@@ -191,11 +195,16 @@ class _PracticeHubScreenState extends State<PracticeHubScreen> {
               child: Center(
                 child: _isSeeding
                     ? const SizedBox(
-                        width: 22, height: 22,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2, color: Colors.white),
                       )
                     : const Text('📸 TẢI ẢNH TỰ ĐỘNG (30 từ)',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 14)),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800,
+                            fontSize: 14)),
               ),
             ),
           ),
@@ -278,7 +287,9 @@ class _PracticeModeCard extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.25), shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.25),
+                  shape: BoxShape.circle),
               child: Icon(icon, color: Colors.white, size: 28),
             ),
             const SizedBox(width: 16),
@@ -286,13 +297,21 @@ class _PracticeModeCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 17)),
+                  Text(title,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 17)),
                   const SizedBox(height: 4),
-                  Text(subtitle, style: TextStyle(color: Colors.white.withValues(alpha: 0.9), fontSize: 12)),
+                  Text(subtitle,
+                      style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.9),
+                          fontSize: 12)),
                 ],
               ),
             ),
-            const Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 16),
+            const Icon(Icons.arrow_forward_ios_rounded,
+                color: Colors.white, size: 16),
           ],
         ),
       ),

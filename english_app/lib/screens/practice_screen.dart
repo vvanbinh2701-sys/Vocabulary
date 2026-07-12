@@ -41,7 +41,8 @@ class _PracticeScreenState extends State<PracticeScreen>
 
   @override
   Widget build(BuildContext context) {
-    final words = widget.customWords ?? context.watch<AppState>().vocabByTopic(widget.categoryId);
+    final words = widget.customWords ??
+        context.watch<AppState>().vocabByTopic(widget.categoryId);
 
     return Scaffold(
       appBar: AppBar(
@@ -97,16 +98,53 @@ class _ImageLearningTabState extends State<_ImageLearningTab> {
 
   /// Map từ vựng → emoji minh họa
   static const _emojiMap = {
-    'dog': '🐕', 'cat': '🐈', 'bird': '🐦', 'fish': '🐟', 'elephant': '🐘',
-    'tiger': '🐅', 'lion': '🦁', 'monkey': '🐒', 'horse': '🐴', 'cow': '🐄',
-    'mother': '👩', 'father': '👨', 'family': '👨‍👩‍👧‍👦', 'brother': '👦', 'sister': '👧',
-    'apple': '🍎', 'banana': '🍌', 'rice': '🍚', 'bread': '🍞', 'water': '💧',
-    'doctor': '🩺', 'teacher': '📚', 'student': '🎒', 'nurse': '💊',
-    'school': '🏫', 'house': '🏠', 'hospital': '🏥', 'restaurant': '🍽️', 'shop': '🛍️',
-    'car': '🚗', 'bus': '🚌', 'plane': '✈️', 'bike': '🚲',
-    'pen': '🖊️', 'book': '📖', 'phone': '📱', 'computer': '💻',
-    'hello': '👋', 'go': '🚶', 'eat': '🍽️', 'sleep': '😴', 'run': '🏃',
-    'beautiful': '✨', 'big': '🐋', 'small': '🐜', 'happy': '😊', 'sad': '😢',
+    'dog': '🐕',
+    'cat': '🐈',
+    'bird': '🐦',
+    'fish': '🐟',
+    'elephant': '🐘',
+    'tiger': '🐅',
+    'lion': '🦁',
+    'monkey': '🐒',
+    'horse': '🐴',
+    'cow': '🐄',
+    'mother': '👩',
+    'father': '👨',
+    'family': '👨‍👩‍👧‍👦',
+    'brother': '👦',
+    'sister': '👧',
+    'apple': '🍎',
+    'banana': '🍌',
+    'rice': '🍚',
+    'bread': '🍞',
+    'water': '💧',
+    'doctor': '🩺',
+    'teacher': '📚',
+    'student': '🎒',
+    'nurse': '💊',
+    'school': '🏫',
+    'house': '🏠',
+    'hospital': '🏥',
+    'restaurant': '🍽️',
+    'shop': '🛍️',
+    'car': '🚗',
+    'bus': '🚌',
+    'plane': '✈️',
+    'bike': '🚲',
+    'pen': '🖊️',
+    'book': '📖',
+    'phone': '📱',
+    'computer': '💻',
+    'hello': '👋',
+    'go': '🚶',
+    'eat': '🍽️',
+    'sleep': '😴',
+    'run': '🏃',
+    'beautiful': '✨',
+    'big': '🐋',
+    'small': '🐜',
+    'happy': '😊',
+    'sad': '😢',
   };
 
   String _emojiFor(String word) {
@@ -124,7 +162,8 @@ class _ImageLearningTabState extends State<_ImageLearningTab> {
     final words = widget.words;
     if (words.isEmpty) {
       return const Center(
-          child: Text('Không có từ nào', style: TextStyle(color: AppColors.textGrey)));
+          child: Text('Không có từ nào',
+              style: TextStyle(color: AppColors.textGrey)));
     }
     final word = words[_index];
     final color = _colors[_index % _colors.length];
@@ -179,17 +218,23 @@ class _ImageLearningTabState extends State<_ImageLearningTab> {
                               ? Image.network(
                                   word.imageUrl!,
                                   fit: BoxFit.cover,
-                                  loadingBuilder: (context, child, loadingProgress) {
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
                                     if (loadingProgress == null) return child;
                                     return Center(
-                                      child: Text(emoji, style: const TextStyle(fontSize: 72)),
+                                      child: Text(emoji,
+                                          style: const TextStyle(fontSize: 72)),
                                     );
                                   },
                                   errorBuilder: (context, error, stackTrace) =>
-                                      Center(child: Text(emoji, style: const TextStyle(fontSize: 72))),
+                                      Center(
+                                          child: Text(emoji,
+                                              style: const TextStyle(
+                                                  fontSize: 72))),
                                 )
                               : Center(
-                                  child: Text(emoji, style: const TextStyle(fontSize: 72)),
+                                  child: Text(emoji,
+                                      style: const TextStyle(fontSize: 72)),
                                 ),
                         ),
                       ),
@@ -254,8 +299,12 @@ class _ImageLearningTabState extends State<_ImageLearningTab> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    isMastered ? Icons.check_circle : Icons.check_circle_outline,
-                    color: isMastered ? AppColors.primaryGreen : AppColors.textGrey,
+                    isMastered
+                        ? Icons.check_circle
+                        : Icons.check_circle_outline,
+                    color: isMastered
+                        ? AppColors.primaryGreen
+                        : AppColors.textGrey,
                     size: 20,
                   ),
                   const SizedBox(width: 8),
@@ -263,7 +312,9 @@ class _ImageLearningTabState extends State<_ImageLearningTab> {
                     isMastered ? 'Đã thuộc' : 'Đánh dấu đã thuộc',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      color: isMastered ? AppColors.primaryGreen : AppColors.textGrey,
+                      color: isMastered
+                          ? AppColors.primaryGreen
+                          : AppColors.textGrey,
                     ),
                   ),
                 ],
@@ -639,8 +690,8 @@ class _AiDialogueTabState extends State<_AiDialogueTab> {
               child: SingleChildScrollView(
                 child: _error.isNotEmpty
                     ? Text(_error,
-                        style: const TextStyle(
-                            color: AppColors.red, height: 1.6))
+                        style:
+                            const TextStyle(color: AppColors.red, height: 1.6))
                     : _dialogue.isEmpty
                         ? const Text(
                             'Nhập một từ tiếng Anh và nhấn "Tạo hội thoại" để AI (DeepSeek) tạo một đoạn hội thoại mẫu.\n\nVí dụ: nhập "travel" rồi nhấn nút.',

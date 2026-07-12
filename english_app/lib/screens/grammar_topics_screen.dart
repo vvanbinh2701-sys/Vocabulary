@@ -23,7 +23,20 @@ const _groups = [
   _GrammarGroup(
     title: 'Các Thì',
     emoji: '⏰',
-    lessonIds: ['g1', 'g2', 'g3', 'g4', 'g5', 'g7', 'g8', 'g9', 'g10', 'g11', 'g12', 'g13'],
+    lessonIds: [
+      'g1',
+      'g2',
+      'g3',
+      'g4',
+      'g5',
+      'g7',
+      'g8',
+      'g9',
+      'g10',
+      'g11',
+      'g12',
+      'g13'
+    ],
   ),
   _GrammarGroup(
     title: 'So sánh',
@@ -140,7 +153,8 @@ class _GrammarTopicsScreenState extends State<GrammarTopicsScreen> {
 
     if (results.isEmpty) {
       return const Center(
-        child: Text('Không tìm thấy bài học', style: TextStyle(color: AppColors.textGrey)),
+        child: Text('Không tìm thấy bài học',
+            style: TextStyle(color: AppColors.textGrey)),
       );
     }
 
@@ -181,7 +195,8 @@ class _GrammarTopicsScreenState extends State<GrammarTopicsScreen> {
 
     if (items.isEmpty) {
       return const Center(
-        child: Text('Chưa có bài học', style: TextStyle(color: AppColors.textGrey)),
+        child: Text('Chưa có bài học',
+            style: TextStyle(color: AppColors.textGrey)),
       );
     }
 
@@ -262,7 +277,8 @@ class _GroupHeader extends StatelessWidget {
                   ),
                   Text(
                     '$completed/$total bài đã hoàn thành',
-                    style: const TextStyle(fontSize: 12, color: AppColors.textGrey),
+                    style: const TextStyle(
+                        fontSize: 12, color: AppColors.textGrey),
                   ),
                 ],
               ),
@@ -281,7 +297,9 @@ class _GroupHeader extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w800,
-                  color: completed == total && total > 0 ? AppColors.primaryGreen : AppColors.blue,
+                  color: completed == total && total > 0
+                      ? AppColors.primaryGreen
+                      : AppColors.blue,
                 ),
               ),
             ),
@@ -290,7 +308,8 @@ class _GroupHeader extends StatelessWidget {
             AnimatedRotation(
               turns: isExpanded ? 0.5 : 0,
               duration: const Duration(milliseconds: 250),
-              child: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.textGrey),
+              child: const Icon(Icons.keyboard_arrow_down_rounded,
+                  color: AppColors.textGrey),
             ),
           ],
         ),
@@ -306,7 +325,10 @@ class _LessonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => GrammarDetailScreen(lesson: lesson))),
+      onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (_) => GrammarDetailScreen(lesson: lesson))),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
@@ -320,12 +342,19 @@ class _LessonCard extends StatelessWidget {
               width: 44,
               height: 44,
               decoration: BoxDecoration(
-                color: (lesson.isCompleted ? AppColors.primaryGreen : AppColors.blue).withOpacity(0.12),
+                color: (lesson.isCompleted
+                        ? AppColors.primaryGreen
+                        : AppColors.blue)
+                    .withOpacity(0.12),
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                lesson.isCompleted ? Icons.check_circle : Icons.menu_book_rounded,
-                color: lesson.isCompleted ? AppColors.primaryGreen : AppColors.blue,
+                lesson.isCompleted
+                    ? Icons.check_circle
+                    : Icons.menu_book_rounded,
+                color: lesson.isCompleted
+                    ? AppColors.primaryGreen
+                    : AppColors.blue,
               ),
             ),
             const SizedBox(width: 14),
@@ -333,9 +362,13 @@ class _LessonCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 15)),
+                  Text(lesson.title,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w800, fontSize: 15)),
                   const SizedBox(height: 2),
-                  Text(lesson.summary, style: const TextStyle(color: AppColors.textGrey, fontSize: 12)),
+                  Text(lesson.summary,
+                      style: const TextStyle(
+                          color: AppColors.textGrey, fontSize: 12)),
                 ],
               ),
             ),

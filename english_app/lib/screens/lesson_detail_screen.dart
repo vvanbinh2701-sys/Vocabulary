@@ -217,12 +217,14 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
                                               child: Text(line.speaker,
                                                   style: TextStyle(
                                                       color: accent,
-                                                      fontWeight: FontWeight.w900)),
+                                                      fontWeight:
+                                                          FontWeight.w900)),
                                             ),
                                             _MasteryToggle(
                                               isMastered: isMastered,
-                                              onTap: () =>
-                                                  app.toggleConversationMastered(line.id),
+                                              onTap: () => app
+                                                  .toggleConversationMastered(
+                                                      line.id),
                                             ),
                                           ],
                                         ),
@@ -292,8 +294,8 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
                                             // Nút tròn toggle Mới ↔ Đã thuộc
                                             _MasteryToggle(
                                               isMastered: isMastered,
-                                              onTap: () =>
-                                                  app.toggleWordMastered(word.id),
+                                              onTap: () => app
+                                                  .toggleWordMastered(word.id),
                                             ),
                                             IconButton(
                                               padding: EdgeInsets.zero,
@@ -507,7 +509,9 @@ class _MasteryToggle extends StatelessWidget {
           shape: BoxShape.circle,
           color: isMastered ? AppColors.primaryGreen : Colors.transparent,
           border: Border.all(
-            color: isMastered ? AppColors.primaryGreen : AppColors.textGrey.withOpacity(0.4),
+            color: isMastered
+                ? AppColors.primaryGreen
+                : AppColors.textGrey.withOpacity(0.4),
             width: 2.5,
           ),
         ),

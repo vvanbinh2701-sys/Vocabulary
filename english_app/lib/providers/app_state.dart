@@ -86,7 +86,8 @@ class AppState extends ChangeNotifier {
 
       // Load tất cả dòng hội thoại từ collection conversation_lines
       final allLines = <ConversationLine>[];
-      for (var t in _firestoreTopics.where((topic) => topic.categoryId == 'conversation')) {
+      for (var t in _firestoreTopics
+          .where((topic) => topic.categoryId == 'conversation')) {
         final lines = await _firestoreService.getConversationLines(t.id);
         allLines.addAll(lines);
       }
@@ -102,7 +103,8 @@ class AppState extends ChangeNotifier {
   /// Hàm tiện ích giúp đẩy toàn bộ dữ liệu mẫu từ file JSON lên Firestore
   Future<void> seedInitialData() async {
     try {
-      final jsonString = await rootBundle.loadString('assets/firebase_seed/firestore_data.json');
+      final jsonString = await rootBundle
+          .loadString('assets/firebase_seed/firestore_data.json');
       final data = json.decode(jsonString) as Map<String, dynamic>;
 
       // Parsing topics
@@ -117,12 +119,15 @@ class AppState extends ChangeNotifier {
 
       // Parsing grammar lessons
       final List<GrammarLesson> seedGrammars = (data['grammar_lessons'] as List)
-          .map((g) => GrammarLesson.fromMap(Map<String, dynamic>.from(g), g['id']))
+          .map((g) =>
+              GrammarLesson.fromMap(Map<String, dynamic>.from(g), g['id']))
           .toList();
 
       // Parsing conversation lines (collection mới)
-      final List<ConversationLine> seedConvLines = (data['conversation_lines'] as List)
-          .map((c) => ConversationLine.fromMap(Map<String, dynamic>.from(c), c['id']))
+      final List<ConversationLine> seedConvLines = (data['conversation_lines']
+              as List)
+          .map((c) =>
+              ConversationLine.fromMap(Map<String, dynamic>.from(c), c['id']))
           .toList();
 
       await _firestoreService.seedData(
@@ -235,7 +240,8 @@ class AppState extends ChangeNotifier {
 
   void _updateVocabProgress() {
     if (sampleVocab.isEmpty) return;
-    final mastered = sampleVocab.where((v) => v.masteryLevel == 'Đã thuộc').length;
+    final mastered =
+        sampleVocab.where((v) => v.masteryLevel == 'Đã thuộc').length;
     progressByCategory['vocab'] = mastered / sampleVocab.length;
   }
 

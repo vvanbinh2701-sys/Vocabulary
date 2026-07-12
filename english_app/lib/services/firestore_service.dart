@@ -47,14 +47,16 @@ class FirestoreService {
   }
 
   /// Cập nhật trạng thái thuộc từ vựng (Mới / Đã thuộc) lên Firestore
-  Future<void> updateVocabularyMastery(String wordId, String masteryLevel) async {
+  Future<void> updateVocabularyMastery(
+      String wordId, String masteryLevel) async {
     await _db.collection('vocabularies').doc(wordId).update({
       'masteryLevel': masteryLevel,
     });
   }
 
   /// Cập nhật trạng thái thuộc dòng hội thoại (Mới / Đã thuộc) lên Firestore
-  Future<void> updateConversationMastery(String lineId, String masteryLevel) async {
+  Future<void> updateConversationMastery(
+      String lineId, String masteryLevel) async {
     await _db.collection('conversation_lines').doc(lineId).update({
       'masteryLevel': masteryLevel,
     });
@@ -69,7 +71,10 @@ class FirestoreService {
     for (int i = 0; i < snapshot.docs.length; i += chunkSize) {
       final batch = _db.batch();
       final chunk = snapshot.docs.sublist(
-          i, i + chunkSize > snapshot.docs.length ? snapshot.docs.length : i + chunkSize);
+          i,
+          i + chunkSize > snapshot.docs.length
+              ? snapshot.docs.length
+              : i + chunkSize);
       for (final doc in chunk) {
         batch.delete(doc.reference);
       }
@@ -111,7 +116,8 @@ class FirestoreService {
     // Commit từng batch tối đa 400 thao tác
     const chunkSize = 400;
     for (int i = 0; i < ops.length; i += chunkSize) {
-      final chunk = ops.sublist(i, i + chunkSize > ops.length ? ops.length : i + chunkSize);
+      final chunk = ops.sublist(
+          i, i + chunkSize > ops.length ? ops.length : i + chunkSize);
       final batch = _db.batch();
       for (final op in chunk) {
         await op(batch);
