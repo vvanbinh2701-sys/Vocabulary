@@ -1,10 +1,10 @@
 name: english_app
 description: Ứng dụng học tiếng Anh
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -17,6 +17,7 @@ dependencies:
   firebase_storage: ^13.4.3
   google_generative_ai: ^0.4.6
   http: ^1.2.0
+  flutter_tts: ^4.2.2
 
 dev_dependencies:
   flutter_test:
