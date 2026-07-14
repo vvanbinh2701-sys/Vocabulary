@@ -106,6 +106,31 @@ class FirestoreService {
     }, SetOptions(merge: true));
   }
 
+  // ----- Streak -----
+
+  /// Lưu dữ liệu streak (chuỗi ngày học liên tục)
+  Future<void> saveStreak(String uid, int currentStreak, int longestStreak, String lastActiveDate) async {
+    await _db.collection('users').doc(uid).set({
+      'streak': {
+        'currentStreak': currentStreak,
+        'longestStreak': longestStreak,
+        'lastActiveDate': lastActiveDate,
+      }
+    }, SetOptions(merge: true));
+  }
+
+  // ----- User Profile (avatar, phone) -----
+
+  /// Lưu thông tin hồ sơ người dùng (avatar, số điện thoại)
+  Future<void> saveUserProfile(String uid, {String? avatarId, String? phone}) async {
+    final Map<String, dynamic> data = {};
+    if (avatarId != null) data['avatarId'] = avatarId;
+    if (phone != null) data['phone'] = phone;
+    if (data.isNotEmpty) {
+      await _db.collection('users').doc(uid).set(data, SetOptions(merge: true));
+    }
+  }
+
   /// Xóa toàn bộ collection conversations cũ (đã migrate sang conversation_lines)
   Future<void> deleteOldConversations() async {
     final snapshot = await _db.collection('conversations').get();

@@ -1,9 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/avatar_presets.dart';
 import '../providers/app_state.dart';
 import '../theme/app_theme.dart';
+import 'edit_profile_screen.dart';
+import 'help_support_screen.dart';
+import 'reminder_screen.dart';
+import 'security_screen.dart';
 import 'welcome_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -12,6 +16,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final app = context.watch<AppState>();
+    final avatar = getAvatarById(app.avatarId);
 
     return SafeArea(
       child: ListView(
@@ -32,14 +37,20 @@ class ProfileScreen extends StatelessWidget {
                   width: 96,
                   height: 96,
                   decoration: BoxDecoration(
-                    color: AppColors.primaryGreen.withValues(alpha: 0.15),
+                    color: avatar != null
+                        ? avatar.color.withValues(alpha: 0.15)
+                        : AppColors.primaryGreen.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
-                    border: Border.all(color: AppColors.primaryGreen, width: 3),
+                    border: Border.all(
+                      color: avatar?.color ?? AppColors.primaryGreen,
+                      width: 3,
+                    ),
                   ),
-                  child: const Icon(
-                    Icons.person,
-                    size: 50,
-                    color: AppColors.primaryGreen,
+                  child: Center(
+                    child: Text(
+                      avatar?.emoji ?? '👤',
+                      style: const TextStyle(fontSize: 42),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -81,37 +92,35 @@ class ProfileScreen extends StatelessWidget {
           _MenuTile(
             icon: Icons.edit_outlined,
             label: 'Cập nhật thông tin cá nhân',
-            onTap: () => _showEditDialog(context, app),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const EditProfileScreen()),
+            ),
           ),
           _MenuTile(
-            icon: Icons.lock_reset_outlined,
-            label: 'Đặt lại mật khẩu qua email',
-            onTap: () => _sendResetPassword(context, app),
-          ),
-          _MenuTile(
-            icon: Icons.cloud_upload_outlined,
-            label: 'Đẩy dữ liệu mẫu lên Firestore (Seed)',
-            onTap: () async {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Đang đẩy dữ liệu lên Firestore...')),
-              );
-              await app.seedInitialData();
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Đẩy dữ liệu lên Firestore thành công!')),
-                );
-              }
-            },
+            icon: Icons.security_outlined,
+            label: 'Bảo mật',
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SecurityScreen()),
+            ),
           ),
           _MenuTile(
             icon: Icons.notifications_outlined,
             label: 'Thông báo nhắc nhở',
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ReminderScreen()),
+            ),
           ),
           _MenuTile(
             icon: Icons.help_outline,
             label: 'Trợ giúp & Hỗ trợ',
-            onTap: () {},
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => const HelpSupportScreen()),
+            ),
           ),
           const SizedBox(height: 12),
           DuoButton(
@@ -137,65 +146,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _sendResetPassword(BuildContext context, AppState app) async {
-    final email = app.userEmail;
-    if (email == null || email.isEmpty) return;
-
-    try {
-      await app.sendPasswordResetEmail(email);
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Đã gửi email đặt lại mật khẩu.')),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (!context.mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.message ?? 'Không thể gửi email đặt lại mật khẩu.'),
-          backgroundColor: AppColors.red,
-        ),
-      );
-    }
-  }
-
-  void _showEditDialog(BuildContext context, AppState app) {
-    final ctrl = TextEditingController(text: app.userName);
-    showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        title: const Text('Cập nhật thông tin'),
-        content: TextField(
-          controller: ctrl,
-          decoration: const InputDecoration(labelText: 'Họ và tên'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('Hủy'),
-          ),
-          TextButton(
-            onPressed: () async {
-              try {
-                await app.updateUserName(ctrl.text);
-                if (!dialogContext.mounted) return;
-                Navigator.pop(dialogContext);
-              } on FirebaseAuthException catch (e) {
-                if (!dialogContext.mounted) return;
-                ScaffoldMessenger.of(dialogContext).showSnackBar(
-                  SnackBar(
-                    content: Text(e.message ?? 'Không thể cập nhật tên.'),
-                    backgroundColor: AppColors.red,
-                  ),
-                );
-              }
-            },
-            child: const Text('Lưu'),
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class _StatBox extends StatelessWidget {

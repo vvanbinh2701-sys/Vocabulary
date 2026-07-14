@@ -33,6 +33,10 @@ class AppState extends ChangeNotifier {
   bool get isLoggedIn => userEmail != null;
   bool authReady = false;
 
+  // ----- Profile extras -----
+  String? avatarId;
+  String? userPhone;
+
   void _setFirebaseUser(User? user) {
     _userId = user?.uid;
     userEmail = user?.email;
@@ -59,8 +63,47 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateUserProfile({
+    String? name,
+    String? phone,
+    String? newAvatarId,
+  }) async {
+    if (name != null && name.trim().isNotEmpty) {
+      await _authService.updateDisplayName(name.trim());
+      userName = name.trim();
+    }
+    if (phone != null) {
+      userPhone = phone;
+    }
+    if (newAvatarId != null) {
+      avatarId = newAvatarId;
+    }
+    // Lưu avatar + phone xuống Firestore
+    if (_userId != null) {
+      await _firestoreService.saveUserProfile(
+        _userId!,
+        avatarId: newAvatarId,
+        phone: phone,
+      );
+    }
+    notifyListeners();
+  }
+
   Future<void> sendPasswordResetEmail(String email) {
     return _authService.sendPasswordResetEmail(email);
+  }
+
+  /// Đổi mật khẩu: xác thực lại → cập nhật mật khẩu mới
+  Future<void> changePassword({
+    required String email,
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    await _authService.reauthenticateAndChangePassword(
+      email: email,
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    );
   }
 
   Future<void> logout() async {
@@ -121,6 +164,10 @@ class AppState extends ChangeNotifier {
     try {
       // Load toàn bộ dữ liệu user trong 1 lần đọc
       final userData = await _firestoreService.getUserData(userId);
+
+      // Load profile extras
+      avatarId = userData['avatarId'] as String?;
+      userPhone = userData['phone'] as String?;
 
       // Load favorites
       favoriteWordIds.clear();
@@ -193,6 +240,14 @@ class AppState extends ChangeNotifier {
           practiceSessionsToday = dailyGoals['practiceSessions'] as int? ?? 0;
         }
         // Khác ngày → để mặc định 0, _resetDailyIfNeeded sẽ xử lý
+      }
+
+      // Load streak
+      final streakData = userData['streak'] as Map<String, dynamic>?;
+      if (streakData != null) {
+        currentStreak = streakData['currentStreak'] as int? ?? 0;
+        longestStreak = streakData['longestStreak'] as int? ?? 0;
+        _lastActiveDate = streakData['lastActiveDate'] as String? ?? '';
       }
 
       // Tính lại % tiến độ
@@ -275,6 +330,7 @@ class AppState extends ChangeNotifier {
   // ----- Streak -----
   int currentStreak = 0;
   int longestStreak = 0;
+  String _lastActiveDate = '';
 
   // ----- Daily Goals -----
   String _dailyGoalDate = '';
@@ -300,10 +356,57 @@ class AppState extends ChangeNotifier {
     );
   }
 
+  // ----- Streak logic -----
+
+  /// Cập nhật streak dựa trên ngày hiện tại.
+  /// - Cùng ngày → không thay đổi
+  /// - Hôm qua → tăng currentStreak
+  /// - Cách >1 ngày → reset currentStreak = 1
+  void _updateStreak() {
+    final today = DateTime.now().toIso8601String().substring(0, 10);
+
+    // Nếu đã active hôm nay rồi thì không tính lại
+    if (_lastActiveDate == today) return;
+
+    if (_lastActiveDate.isEmpty) {
+      // Lần đầu tiên học
+      currentStreak = 1;
+    } else {
+      final lastDate = DateTime.tryParse(_lastActiveDate);
+      if (lastDate != null) {
+        final diff = DateTime.now().difference(lastDate).inDays;
+        if (diff == 1) {
+          // Học liên tiếp ngày hôm qua → tăng streak
+          currentStreak++;
+        } else if (diff > 1) {
+          // Bỏ qua ngày → reset streak
+          currentStreak = 1;
+        }
+        // diff == 0 không xảy ra vì đã check _lastActiveDate == today ở trên
+      }
+    }
+
+    // Cập nhật kỷ lục
+    if (currentStreak > longestStreak) {
+      longestStreak = currentStreak;
+    }
+
+    _lastActiveDate = today;
+
+    // Lưu lên Firestore (fire & forget)
+    final userId = uid;
+    if (userId != null) {
+      _firestoreService.saveStreak(
+        userId, currentStreak, longestStreak, _lastActiveDate,
+      );
+    }
+  }
+
   /// Gọi khi người dùng học một từ (vào flashcard, quiz, practice...)
   void trackWordStudied() {
     _resetDailyIfNeeded();
     wordsStudiedToday++;
+    _updateStreak();
     _saveDailyGoals();
     notifyListeners();
   }
@@ -312,6 +415,7 @@ class AppState extends ChangeNotifier {
   void trackGrammarDone() {
     _resetDailyIfNeeded();
     grammarDoneToday++;
+    _updateStreak();
     _saveDailyGoals();
     notifyListeners();
   }
@@ -320,6 +424,7 @@ class AppState extends ChangeNotifier {
   void trackPracticeSession() {
     _resetDailyIfNeeded();
     practiceSessionsToday++;
+    _updateStreak();
     _saveDailyGoals();
     notifyListeners();
   }
@@ -336,7 +441,6 @@ class AppState extends ChangeNotifier {
 
   void updateProgress(String categoryId, double percent) {
     progressByCategory[categoryId] = percent;
-    currentStreak += 1;
     notifyListeners();
   }
 

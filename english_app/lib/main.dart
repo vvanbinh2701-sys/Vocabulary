@@ -5,10 +5,15 @@ import 'theme/app_theme.dart';
 import 'providers/app_state.dart';
 import 'screens/home_shell.dart';
 import 'screens/welcome_screen.dart';
+import 'services/notification_service.dart';
+
+/// Dịch vụ thông báo — khởi tạo 1 lần duy nhất
+final notificationService = NotificationService();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await notificationService.init();
   runApp(const EnglishApp());
 }
 

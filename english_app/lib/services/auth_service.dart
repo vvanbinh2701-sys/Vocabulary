@@ -43,5 +43,22 @@ class AuthService {
     return _auth.sendPasswordResetEmail(email: email);
   }
 
+  /// Xác thực lại user và đổi mật khẩu mới
+  Future<void> reauthenticateAndChangePassword({
+    required String email,
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    final user = _auth.currentUser;
+    if (user == null) throw Exception('Không tìm thấy người dùng.');
+
+    final credential = EmailAuthProvider.credential(
+      email: email,
+      password: currentPassword,
+    );
+    await user.reauthenticateWithCredential(credential);
+    await user.updatePassword(newPassword);
+  }
+
   Future<void> signOut() => _auth.signOut();
 }

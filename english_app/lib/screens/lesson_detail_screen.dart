@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../models/app_models.dart';
 import '../providers/app_state.dart';
-import '../services/tts_service.dart';
 import '../theme/app_theme.dart';
 import 'flashcard_only_screen.dart';
 import 'matching_game_screen.dart';
@@ -27,13 +26,11 @@ class LessonDetailScreen extends StatefulWidget {
 
 class _LessonDetailScreenState extends State<LessonDetailScreen> {
   final _searchCtrl = TextEditingController();
-  final _tts = TtsService();
   String _query = '';
 
   @override
   void dispose() {
     _searchCtrl.dispose();
-    _tts.dispose();
     super.dispose();
   }
 
@@ -253,24 +250,6 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
                                                           FontWeight.w800,
                                                       height: 1.35)),
                                             ),
-                                            GestureDetector(
-                                              onTap: () =>
-                                                  _tts.speak(line.english),
-                                              child: Container(
-                                                width: 36,
-                                                height: 36,
-                                                decoration: BoxDecoration(
-                                                  color:
-                                                      accent.withOpacity(0.1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                ),
-                                                child: Icon(
-                                                    Icons.volume_up_rounded,
-                                                    size: 20,
-                                                    color: accent),
-                                              ),
-                                            ),
                                           ],
                                         ),
                                       ],
@@ -349,25 +328,6 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
                                                 color: app.isFavorite(word.id)
                                                     ? AppColors.red
                                                     : AppColors.textGrey,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 4),
-                                            GestureDetector(
-                                              onTap: () =>
-                                                  _tts.speakWord(word.word),
-                                              child: Container(
-                                                width: 32,
-                                                height: 32,
-                                                decoration: BoxDecoration(
-                                                  color:
-                                                      accent.withOpacity(0.1),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                child: Icon(
-                                                    Icons.volume_up_rounded,
-                                                    size: 18,
-                                                    color: accent),
                                               ),
                                             ),
                                           ],

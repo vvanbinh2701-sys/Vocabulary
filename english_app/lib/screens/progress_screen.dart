@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../theme/app_theme.dart';
 import '../providers/app_state.dart';
 import '../models/app_models.dart';
-import '../services/tts_service.dart';
 
 class ProgressScreen extends StatefulWidget {
   const ProgressScreen({super.key});
@@ -14,11 +13,9 @@ class ProgressScreen extends StatefulWidget {
 
 class _ProgressScreenState extends State<ProgressScreen> {
   bool _showFavorites = true;
-  final _tts = TtsService();
 
   @override
   void dispose() {
-    _tts.dispose();
     super.dispose();
   }
 
@@ -111,7 +108,6 @@ class _ProgressScreenState extends State<ProgressScreen> {
             isExpanded: _showFavorites,
             onToggle: () => setState(() => _showFavorites = !_showFavorites),
             words: favWords,
-            tts: _tts,
             app: app,
           ),
         ],
@@ -448,14 +444,12 @@ class _CollapsibleFavorites extends StatelessWidget {
   final bool isExpanded;
   final VoidCallback onToggle;
   final List<Vocabulary> words;
-  final TtsService tts;
   final AppState app;
 
   const _CollapsibleFavorites({
     required this.isExpanded,
     required this.onToggle,
     required this.words,
-    required this.tts,
     required this.app,
   });
 
@@ -502,7 +496,6 @@ class _CollapsibleFavorites extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 8),
                 child: _FavoriteWordCard(
                   word: word,
-                  tts: tts,
                   app: app,
                 ),
               )),
@@ -516,12 +509,10 @@ class _CollapsibleFavorites extends StatelessWidget {
 // ====================================================================
 class _FavoriteWordCard extends StatelessWidget {
   final Vocabulary word;
-  final TtsService tts;
   final AppState app;
 
   const _FavoriteWordCard({
     required this.word,
-    required this.tts,
     required this.app,
   });
 
@@ -579,23 +570,7 @@ class _FavoriteWordCard extends StatelessWidget {
               ],
             ),
           ),
-          // Nút phát âm
-          GestureDetector(
-            onTap: () => tts.speakWord(word.word),
-            child: Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: AppColors.primaryGreen.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Icon(
-                Icons.volume_up_rounded,
-                size: 20,
-                color: AppColors.primaryGreen,
-              ),
-            ),
-          ),
+
         ],
       ),
     );
