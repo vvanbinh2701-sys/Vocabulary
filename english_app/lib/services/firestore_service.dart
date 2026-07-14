@@ -39,27 +39,71 @@ class FirestoreService {
         .toList();
   }
 
-  /// Đánh dấu một bài ngữ pháp là đã hoàn thành trong Firestore
-  Future<void> markGrammarLessonCompleted(String lessonId) async {
-    await _db.collection('grammar_lessons').doc(lessonId).update({
-      'isCompleted': true,
-    });
+  // ================================================================
+  //  USER-SPECIFIC DATA (lưu trong 1 document users/{uid})
+  // ================================================================
+
+  /// Đọc toàn bộ dữ liệu user: favorites + progress
+  Future<Map<String, dynamic>> getUserData(String uid) async {
+    final doc = await _db.collection('users').doc(uid).get();
+    if (!doc.exists) return {};
+    return doc.data() as Map<String, dynamic>;
   }
 
-  /// Cập nhật trạng thái thuộc từ vựng (Mới / Đã thuộc) lên Firestore
-  Future<void> updateVocabularyMastery(
-      String wordId, String masteryLevel) async {
-    await _db.collection('vocabularies').doc(wordId).update({
-      'masteryLevel': masteryLevel,
-    });
+  /// Lưu masteryLevel của 1 từ vựng theo user
+  Future<void> updateUserWordMastery(String uid, String wordId, String level) async {
+    await _db.collection('users').doc(uid).set(
+      {'wordProgress': {wordId: level}},
+      SetOptions(merge: true),
+    );
   }
 
-  /// Cập nhật trạng thái thuộc dòng hội thoại (Mới / Đã thuộc) lên Firestore
-  Future<void> updateConversationMastery(
-      String lineId, String masteryLevel) async {
-    await _db.collection('conversation_lines').doc(lineId).update({
-      'masteryLevel': masteryLevel,
-    });
+  /// Lưu trạng thái hoàn thành bài ngữ pháp theo user
+  Future<void> updateUserGrammarCompleted(String uid, String lessonId, bool completed) async {
+    await _db.collection('users').doc(uid).set(
+      {'grammarProgress': {lessonId: completed}},
+      SetOptions(merge: true),
+    );
+  }
+
+  /// Lưu masteryLevel của dòng hội thoại theo user
+  Future<void> updateUserConvMastery(String uid, String lineId, String level) async {
+    await _db.collection('users').doc(uid).set(
+      {'convProgress': {lineId: level}},
+      SetOptions(merge: true),
+    );
+  }
+
+  // ----- Favorites (lưu trong users/{uid}/favoriteWordIds) -----
+
+  /// Thêm từ vào danh sách yêu thích
+  Future<void> addFavorite(String uid, String wordId) async {
+    await _db.collection('users').doc(uid).set(
+      {'favoriteWordIds': {wordId: true}},
+      SetOptions(merge: true),
+    );
+  }
+
+  /// Xóa từ khỏi danh sách yêu thích
+  Future<void> removeFavorite(String uid, String wordId) async {
+    await _db.collection('users').doc(uid).set(
+      {'favoriteWordIds': {wordId: false}},
+      SetOptions(merge: true),
+    );
+  }
+
+  // ----- Daily Goals -----
+
+  /// Lưu dữ liệu mục tiêu hàng ngày
+  Future<void> saveDailyGoals(String uid, String date, int words, int grammar, int practice) async {
+    await _db.collection('users').doc(uid).set({
+      'dailyGoals': {
+        'date': date,
+        'wordsStudied': words,
+        'grammarDone': grammar,
+        'practiceSessions': practice,
+      }
+    }, SetOptions(merge: true));
   }
 
   /// Xóa toàn bộ collection conversations cũ (đã migrate sang conversation_lines)

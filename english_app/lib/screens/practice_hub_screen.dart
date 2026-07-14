@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../theme/app_theme.dart';
 import '../providers/app_state.dart';
 import '../models/app_models.dart';
-import '../services/image_seeder.dart';
 import 'practice_screen.dart';
 
 /// Tab "Luyện tập" trên thanh điều hướng dưới cùng.
@@ -17,28 +16,6 @@ class PracticeHubScreen extends StatefulWidget {
 
 class _PracticeHubScreenState extends State<PracticeHubScreen> {
   int _filterIndex = 0;
-  bool _isSeeding = false;
-  String _seedResult = '';
-
-  Future<void> _seedImages(AppState app) async {
-    setState(() {
-      _isSeeding = true;
-      _seedResult = '';
-    });
-
-    final vocabWords =
-        app.sampleVocab.where((v) => v.category == 'vocab').toList();
-    final seeder = ImageSeeder();
-    final result = await seeder.seedImages(vocabWords);
-
-    // Reload từ Firestore để lấy imageUrl mới
-    await app.loadDataFromFirestore();
-
-    setState(() {
-      _isSeeding = false;
-      _seedResult = result;
-    });
-  }
 
   List<Vocabulary> _filteredWords(List<Vocabulary> all) {
     return switch (_filterIndex) {
@@ -53,6 +30,8 @@ class _PracticeHubScreenState extends State<PracticeHubScreen> {
     final app = context.watch<AppState>();
     final allWords = app.sampleVocab;
     final words = _filteredWords(allWords);
+    // Chỉ lấy từ vựng (có ảnh) cho các chế độ luyện tập
+    final vocabWords = words.where((v) => v.category == 'vocab').toList();
     final newCount = allWords.where((v) => v.masteryLevel == 'Mới').length;
     final masteredCount =
         allWords.where((v) => v.masteryLevel == 'Đã thuộc').length;
@@ -128,7 +107,7 @@ class _PracticeHubScreenState extends State<PracticeHubScreen> {
                     categoryId: 'practice_hub',
                     categoryTitle: 'Học hình ảnh',
                     initialTabIndex: 0,
-                    customWords: words,
+                    customWords: vocabWords,
                   ),
                 ),
               ),
@@ -172,48 +151,7 @@ class _PracticeHubScreenState extends State<PracticeHubScreen> {
               ),
             ),
           ],
-          // Nút tải ảnh tự động
-          const SizedBox(height: 24),
-          if (_seedResult.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: Text(_seedResult,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      color: AppColors.primaryGreen,
-                      fontWeight: FontWeight.w700)),
-            ),
-          GestureDetector(
-            onTap: _isSeeding ? null : () => _seedImages(app),
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              decoration: BoxDecoration(
-                color: _isSeeding ? AppColors.textGrey : AppColors.orange,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: _isSeeding
-                    ? const SizedBox(
-                        width: 22,
-                        height: 22,
-                        child: CircularProgressIndicator(
-                            strokeWidth: 2, color: Colors.white),
-                      )
-                    : const Text('📸 TẢI ẢNH TỰ ĐỘNG (30 từ)',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 14)),
-              ),
-            ),
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            'Ảnh sẽ được tải từ Unsplash và lưu vào Firebase Storage',
-            textAlign: TextAlign.center,
-            style: TextStyle(color: AppColors.textGrey, fontSize: 11),
-          ),
+          const SizedBox(height: 16),
         ],
       ),
     );

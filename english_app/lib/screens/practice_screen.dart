@@ -37,6 +37,10 @@ class _PracticeScreenState extends State<PracticeScreen>
       vsync: this,
       initialIndex: widget.initialTabIndex.clamp(0, 2),
     );
+    // Track practice session
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AppState>().trackPracticeSession();
+    });
   }
 
   @override
@@ -68,8 +72,8 @@ class _PracticeScreenState extends State<PracticeScreen>
           : TabBarView(
               controller: _tab,
               children: [
-                _ImageLearningTab(words: words),
-                _SentenceArrangeTab(words: words),
+                _ImageLearningTab(words: words.where((w) => w.category == 'vocab').toList()),
+                _SentenceArrangeTab(words: words.where((w) => w.category == 'vocab').toList()),
                 const _AiDialogueTab(),
               ],
             ),
@@ -88,6 +92,7 @@ class _ImageLearningTab extends StatefulWidget {
 class _ImageLearningTabState extends State<_ImageLearningTab> {
   int _index = 0;
   bool _showMeaning = false;
+  bool _showExampleVi = false;
 
   static const _colors = [
     AppColors.primaryGreen,
@@ -248,15 +253,59 @@ class _ImageLearningTabState extends State<_ImageLearningTab> {
                                     style: const TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.w900,
-                                        color: Colors.white),
+                                        color: AppColors.textDark),
                                     textAlign: TextAlign.center),
                                 const SizedBox(height: 12),
-                                Text('"${word.example}"',
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.white70,
-                                        fontStyle: FontStyle.italic),
-                                    textAlign: TextAlign.center),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Flexible(
+                                      child: Text('"${word.example}"',
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              color: AppColors.textGrey,
+                                              fontStyle: FontStyle.italic),
+                                          textAlign: TextAlign.center),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    // Nút dịch example
+                                    GestureDetector(
+                                      onTap: () => setState(() =>
+                                          _showExampleVi = !_showExampleVi),
+                                      child: Container(
+                                        padding: const EdgeInsets.all(4),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.blue
+                                              .withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        child: Icon(
+                                          _showExampleVi
+                                              ? Icons.translate
+                                              : Icons
+                                                  .translate_outlined,
+                                          size: 16,
+                                          color: AppColors.blue,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                if (_showExampleVi &&
+                                    word.exampleVi != null &&
+                                    word.exampleVi!.isNotEmpty)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: Text(
+                                      word.exampleVi!,
+                                      style: const TextStyle(
+                                          fontSize: 13,
+                                          color: AppColors.textDark,
+                                          fontWeight: FontWeight.w600),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                               ]
                             : [
                                 Text(word.word,
@@ -334,6 +383,7 @@ class _ImageLearningTabState extends State<_ImageLearningTab> {
                       : () => setState(() {
                             _index--;
                             _showMeaning = false;
+                            _showExampleVi = false;
                           }),
                 ),
               ),
@@ -354,6 +404,7 @@ class _ImageLearningTabState extends State<_ImageLearningTab> {
                       setState(() {
                         _index++;
                         _showMeaning = false;
+                        _showExampleVi = false;
                       });
                     }
                   },
@@ -556,6 +607,22 @@ class _SentenceArrangeTabState extends State<_SentenceArrangeTab> {
                   const SizedBox(height: 10),
                   Text('Câu chính xác: $sentence',
                       style: const TextStyle(color: AppColors.textGrey)),
+                  if (word.exampleVi != null &&
+                      word.exampleVi!.isNotEmpty) ...[
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        const Icon(Icons.translate, size: 14,
+                            color: AppColors.textGrey),
+                        const SizedBox(width: 4),
+                        Text(word.exampleVi!,
+                            style: const TextStyle(
+                                color: AppColors.textDark,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14)),
+                      ],
+                    ),
+                  ],
                 ],
               ],
             ),

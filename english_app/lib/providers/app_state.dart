@@ -12,7 +12,11 @@ class AppState extends ChangeNotifier {
   AppState({AuthService? authService, FirestoreService? firestoreService})
       : _authService = authService ?? AuthService(),
         _firestoreService = firestoreService ?? FirestoreService() {
-    _authSub = _authService.authStateChanges.listen(_setFirebaseUser);
+    _authSub = _authService.authStateChanges.listen((user) {
+      final wasLoggedIn = isLoggedIn;
+      _setFirebaseUser(user);
+      if (user != null && !wasLoggedIn) loadDataFromFirestore();
+    });
     _setFirebaseUser(_authService.currentUser);
     loadDataFromFirestore();
   }
@@ -24,10 +28,13 @@ class AppState extends ChangeNotifier {
   // ----- User & Auth -----
   String? userName;
   String? userEmail;
+  String? _userId;
+  String? get uid => _userId;
   bool get isLoggedIn => userEmail != null;
   bool authReady = false;
 
   void _setFirebaseUser(User? user) {
+    _userId = user?.uid;
     userEmail = user?.email;
     userName = user?.displayName?.trim().isNotEmpty == true
         ? user!.displayName
@@ -78,13 +85,13 @@ class AppState extends ChangeNotifier {
       final topics = await _firestoreService.getTopics();
       _firestoreTopics = topics;
 
+      // Load base vocab + grammar + conversation
       final vocab = await _firestoreService.getVocabularies();
       sampleVocab = vocab;
 
       final grammar = await _firestoreService.getGrammarLessons();
       grammarLessons = grammar;
 
-      // Load tất cả dòng hội thoại từ collection conversation_lines
       final allLines = <ConversationLine>[];
       for (var t in _firestoreTopics
           .where((topic) => topic.categoryId == 'conversation')) {
@@ -92,11 +99,132 @@ class AppState extends ChangeNotifier {
         allLines.addAll(lines);
       }
       conversationLines = allLines;
+
+      // Load user-specific progress & favorites
+      await _loadUserData();
     } catch (e) {
       debugPrint('Lỗi tải dữ liệu từ Firestore: $e');
     } finally {
       isLoadingData = false;
       notifyListeners();
+    }
+  }
+
+  /// Load user-specific progress & favorites, áp dụng lên dữ liệu gốc
+  Future<void> _loadUserData() async {
+    final userId = uid;
+    if (userId == null) {
+      debugPrint('⚠ _loadUserData: userId is null');
+      return;
+    }
+
+    try {
+      // Load toàn bộ dữ liệu user trong 1 lần đọc
+      final userData = await _firestoreService.getUserData(userId);
+
+      // Load favorites
+      favoriteWordIds.clear();
+      final favMap = userData['favoriteWordIds'] as Map<String, dynamic>? ?? {};
+      for (final entry in favMap.entries) {
+        if (entry.value == true) favoriteWordIds.add(entry.key);
+      }
+      debugPrint('✅ Loaded ${favoriteWordIds.length} favorites for user $userId');
+
+      // Load progress (masteryLevel, grammar completed)
+      final wordProg = userData['wordProgress'] as Map<String, dynamic>? ?? {};
+      final grammarProg = userData['grammarProgress'] as Map<String, dynamic>? ?? {};
+      final convProg = userData['convProgress'] as Map<String, dynamic>? ?? {};
+
+      // Áp dụng masteryLevel lên sampleVocab
+      if (sampleVocab.isNotEmpty) {
+        sampleVocab = sampleVocab.map((v) {
+          final level = wordProg[v.id];
+          if (level == null || level == '') return v;
+          return Vocabulary(
+            id: v.id,
+            word: v.word,
+            meaning: v.meaning,
+            pronunciation: v.pronunciation,
+            example: v.example,
+            exampleVi: v.exampleVi,
+            category: v.category,
+            topicId: v.topicId,
+            masteryLevel: level as String,
+            imageUrl: v.imageUrl,
+          );
+        }).toList();
+      }
+
+      // Áp dụng isCompleted lên grammarLessons
+      if (grammarLessons.isNotEmpty) {
+        grammarLessons = grammarLessons.map((g) {
+          final completed = grammarProg[g.id];
+          if (completed != true) return g;
+          return g.copyWith(isCompleted: true);
+        }).toList();
+      }
+
+      // Áp dụng masteryLevel lên conversationLines
+      if (conversationLines.isNotEmpty) {
+        conversationLines = conversationLines.map((c) {
+          final level = convProg[c.id];
+          if (level == null || level == '') return c;
+          return ConversationLine(
+            id: c.id,
+            topicId: c.topicId,
+            speaker: c.speaker,
+            english: c.english,
+            vietnamese: c.vietnamese,
+            masteryLevel: level as String,
+          );
+        }).toList();
+      }
+
+      // Load daily goals
+      final dailyGoals = userData['dailyGoals'] as Map<String, dynamic>?;
+      if (dailyGoals != null) {
+        final savedDate = dailyGoals['date'] as String? ?? '';
+        final today = DateTime.now().toIso8601String().substring(0, 10);
+        if (savedDate == today) {
+          // Cùng ngày → khôi phục số liệu
+          _dailyGoalDate = savedDate;
+          wordsStudiedToday = dailyGoals['wordsStudied'] as int? ?? 0;
+          grammarDoneToday = dailyGoals['grammarDone'] as int? ?? 0;
+          practiceSessionsToday = dailyGoals['practiceSessions'] as int? ?? 0;
+        }
+        // Khác ngày → để mặc định 0, _resetDailyIfNeeded sẽ xử lý
+      }
+
+      // Tính lại % tiến độ
+      _recalculateAllProgress();
+    } catch (e) {
+      debugPrint('Lỗi tải dữ liệu user: $e');
+    }
+  }
+
+  /// Tính lại % tiến độ cho tất cả categories
+  void _recalculateAllProgress() {
+    // Vocab
+    if (sampleVocab.isNotEmpty) {
+      final mastered = sampleVocab.where((v) => v.masteryLevel == 'Đã thuộc').length;
+      progressByCategory['vocab'] = mastered / sampleVocab.length;
+    }
+    // Grammar
+    if (grammarLessons.isNotEmpty) {
+      final completed = grammarLessons.where((g) => g.isCompleted).length;
+      progressByCategory['grammar'] = completed / grammarLessons.length;
+    }
+    // Conversation
+    final convTotal = conversationLines.length;
+    if (convTotal > 0) {
+      final mastered = conversationLines.where((c) => c.masteryLevel == 'Đã thuộc').length;
+      progressByCategory['conversation'] = mastered / convTotal;
+    }
+    // Phrase (dùng chung sampleVocab với category='phrase')
+    final phraseWords = sampleVocab.where((v) => v.category == 'phrase').toList();
+    if (phraseWords.isNotEmpty) {
+      final mastered = phraseWords.where((v) => v.masteryLevel == 'Đã thuộc').length;
+      progressByCategory['phrase'] = mastered / phraseWords.length;
     }
   }
 
@@ -148,6 +276,54 @@ class AppState extends ChangeNotifier {
   int currentStreak = 0;
   int longestStreak = 0;
 
+  // ----- Daily Goals -----
+  String _dailyGoalDate = '';
+  int wordsStudiedToday = 0;
+  int grammarDoneToday = 0;
+  int practiceSessionsToday = 0;
+
+  void _resetDailyIfNeeded() {
+    final today = DateTime.now().toIso8601String().substring(0, 10);
+    if (_dailyGoalDate != today) {
+      _dailyGoalDate = today;
+      wordsStudiedToday = 0;
+      grammarDoneToday = 0;
+      practiceSessionsToday = 0;
+    }
+  }
+
+  void _saveDailyGoals() {
+    final userId = uid;
+    if (userId == null) return;
+    _firestoreService.saveDailyGoals(
+      userId, _dailyGoalDate, wordsStudiedToday, grammarDoneToday, practiceSessionsToday,
+    );
+  }
+
+  /// Gọi khi người dùng học một từ (vào flashcard, quiz, practice...)
+  void trackWordStudied() {
+    _resetDailyIfNeeded();
+    wordsStudiedToday++;
+    _saveDailyGoals();
+    notifyListeners();
+  }
+
+  /// Gọi khi người dùng hoàn thành 1 bài ngữ pháp
+  void trackGrammarDone() {
+    _resetDailyIfNeeded();
+    grammarDoneToday++;
+    _saveDailyGoals();
+    notifyListeners();
+  }
+
+  /// Gọi khi người dùng mở 1 buổi luyện tập
+  void trackPracticeSession() {
+    _resetDailyIfNeeded();
+    practiceSessionsToday++;
+    _saveDailyGoals();
+    notifyListeners();
+  }
+
   // ----- Progress (theo categoryId -> % hoàn thành) -----
   final Map<String, double> progressByCategory = {
     'vocab': 0.0,
@@ -170,6 +346,7 @@ class AppState extends ChangeNotifier {
   Future<void> markGrammarCompleted(String lessonId) async {
     final idx = grammarLessons.indexWhere((l) => l.id == lessonId);
     if (idx == -1 || grammarLessons[idx].isCompleted) return;
+    trackGrammarDone();
 
     // Cập nhật local list ngay
     grammarLessons = List.of(grammarLessons)
@@ -182,22 +359,38 @@ class AppState extends ChangeNotifier {
 
     notifyListeners();
 
-    // Đồng bộ lên Firestore nền
+    // Đồng bộ lên Firestore nền (theo user)
     try {
-      await _firestoreService.markGrammarLessonCompleted(lessonId);
+      final userId = uid;
+      if (userId != null) {
+        await _firestoreService.updateUserGrammarCompleted(userId, lessonId, true);
+      }
     } catch (e) {
       debugPrint('Lỗi cập nhật Firestore: $e');
     }
   }
 
-  // ----- Favorites -----
+  // ----- Favorites (theo user) -----
   final Set<String> favoriteWordIds = {};
 
-  void toggleFavorite(String wordId) {
+  Future<void> toggleFavorite(String wordId) async {
+    final userId = uid;
+    if (userId == null) return;
+
     if (favoriteWordIds.contains(wordId)) {
       favoriteWordIds.remove(wordId);
+      try {
+        await _firestoreService.removeFavorite(userId, wordId);
+      } catch (e) {
+        debugPrint('Lỗi xóa favorite: $e');
+      }
     } else {
       favoriteWordIds.add(wordId);
+      try {
+        await _firestoreService.addFavorite(userId, wordId);
+      } catch (e) {
+        debugPrint('Lỗi thêm favorite: $e');
+      }
     }
     notifyListeners();
   }
@@ -205,9 +398,10 @@ class AppState extends ChangeNotifier {
   bool isFavorite(String wordId) => favoriteWordIds.contains(wordId);
 
   // ----- Toggle trạng thái thuộc từ vựng (Mới ↔ Đã thuộc) -----
-  void toggleWordMastered(String wordId) {
+  Future<void> toggleWordMastered(String wordId) async {
     final idx = sampleVocab.indexWhere((v) => v.id == wordId);
     if (idx == -1) return;
+    trackWordStudied();
 
     final current = sampleVocab[idx];
     final newLevel = current.masteryLevel == 'Đã thuộc' ? 'Mới' : 'Đã thuộc';
@@ -219,6 +413,7 @@ class AppState extends ChangeNotifier {
         meaning: current.meaning,
         pronunciation: current.pronunciation,
         example: current.example,
+        exampleVi: current.exampleVi,
         category: current.category,
         topicId: current.topicId,
         masteryLevel: newLevel,
@@ -230,9 +425,12 @@ class AppState extends ChangeNotifier {
 
     notifyListeners();
 
-    // Đồng bộ lên Firestore nền
+    // Đồng bộ lên Firestore nền (theo user)
     try {
-      _firestoreService.updateVocabularyMastery(wordId, newLevel);
+      final userId = uid;
+      if (userId != null) {
+        await _firestoreService.updateUserWordMastery(userId, wordId, newLevel);
+      }
     } catch (e) {
       debugPrint('Lỗi cập nhật mastery từ vựng: $e');
     }
@@ -246,7 +444,7 @@ class AppState extends ChangeNotifier {
   }
 
   // ----- Toggle trạng thái thuộc dòng hội thoại (Mới ↔ Đã thuộc) -----
-  void toggleConversationMastered(String lineId) {
+  Future<void> toggleConversationMastered(String lineId) async {
     final idx = conversationLines.indexWhere((l) => l.id == lineId);
     if (idx == -1) return;
 
@@ -265,9 +463,12 @@ class AppState extends ChangeNotifier {
 
     notifyListeners();
 
-    // Đồng bộ lên Firestore nền
+    // Đồng bộ lên Firestore nền (theo user)
     try {
-      _firestoreService.updateConversationMastery(lineId, newLevel);
+      final userId = uid;
+      if (userId != null) {
+        await _firestoreService.updateUserConvMastery(userId, lineId, newLevel);
+      }
     } catch (e) {
       debugPrint('Lỗi cập nhật mastery hội thoại: $e');
     }

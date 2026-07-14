@@ -4,6 +4,7 @@ class Vocabulary {
   final String meaning;
   final String pronunciation;
   final String example;
+  final String? exampleVi;
   final String category;
   final String topicId;
   final String masteryLevel;
@@ -15,6 +16,7 @@ class Vocabulary {
     required this.meaning,
     required this.pronunciation,
     required this.example,
+    this.exampleVi,
     required this.category,
     required this.topicId,
     this.masteryLevel = 'Mới',
@@ -32,6 +34,7 @@ class Vocabulary {
       'topicId': topicId,
       'masteryLevel': masteryLevel,
       if (imageUrl != null) 'imageUrl': imageUrl,
+      if (exampleVi != null) 'exampleVi': exampleVi,
     };
   }
 
@@ -42,6 +45,7 @@ class Vocabulary {
       meaning: map['meaning'] ?? '',
       pronunciation: map['pronunciation'] ?? '',
       example: map['example'] ?? '',
+      exampleVi: map['exampleVi'],
       category: map['category'] ?? '',
       topicId: map['topicId'] ?? '',
       masteryLevel: map['masteryLevel'] ?? 'Mới',

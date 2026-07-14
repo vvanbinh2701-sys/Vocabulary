@@ -81,7 +81,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
         children: [
           const SizedBox(height: 6),
           // Chỉ hiển thị game cards cho từ vựng, ẩn với hội thoại
-          if (!isConversation)
+          if (!isConversation && words.isNotEmpty)
             LayoutBuilder(
               builder: (context, constraints) {
                 final screenH = MediaQuery.of(context).size.height;
@@ -97,12 +97,16 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
                           icon: Icons.style_rounded,
                           color: AppColors.primaryGreen,
                           shadow: AppColors.darkGreen,
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => FlashcardOnlyScreen(words: words),
-                            ),
-                          ),
+                          onTap: () {
+                                context.read<AppState>().trackPracticeSession();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        FlashcardOnlyScreen(words: words),
+                                  ),
+                                );
+                              },
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -113,15 +117,18 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
                           icon: Icons.quiz_rounded,
                           color: AppColors.blue,
                           shadow: AppColors.darkBlue,
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => QuizScreen(
-                                topicTitle: widget.topicTitle,
-                                words: words,
-                              ),
-                            ),
-                          ),
+                          onTap: () {
+                                context.read<AppState>().trackPracticeSession();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => QuizScreen(
+                                      topicTitle: widget.topicTitle,
+                                      words: words,
+                                    ),
+                                  ),
+                                );
+                              },
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -132,12 +139,16 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
                           icon: Icons.extension_rounded,
                           color: AppColors.purple,
                           shadow: const Color(0xFFA557E0),
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => MatchingGameScreen(words: words),
-                            ),
-                          ),
+                          onTap: () {
+                                context.read<AppState>().trackPracticeSession();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) =>
+                                        MatchingGameScreen(words: words),
+                                  ),
+                                );
+                              },
                         ),
                       ),
                     ],

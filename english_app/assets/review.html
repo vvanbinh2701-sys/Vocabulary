@@ -1,743 +1,98 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Review Ảnh Từ Vựng – EngMaster</title>
-<style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background:#f5f5f5; padding:20px; }
-    h1 { text-align:center; margin-bottom:8px; color:#333; }
-    .subtitle { text-align:center; color:#888; margin-bottom:24px; }
-    .stats { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:24px; }
-    .stat { background:white; padding:12px 24px; border-radius:12px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
-    .stat .num { font-size:28px; font-weight:700; }
-    .stat .lbl { font-size:13px; color:#888; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
-    .card { background:white; border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.1); transition:transform .2s,opacity .2s; position:relative; }
-    .card:hover { transform:translateY(-3px); }
-    .card.rejected { opacity:0.35; text-decoration:line-through; }
-    .card img { width:100%; height:180px; object-fit:cover; display:block; }
-    .card .label { padding:8px 12px 4px; font-weight:600; font-size:15px; }
-    .card .source { padding:0 12px 8px; font-size:11px; color:#aaa; text-transform:uppercase; }
-    .btn-bad { display:block; width:100%; padding:8px; border:none; background:#fee; color:#c33; cursor:pointer; font-size:13px; transition:background .2s; }
-    .btn-bad:hover { background:#fcc; }
-    .missing-section { background:#fff3cd; padding:20px; border-radius:12px; margin-top:24px; }
-    .missing-section ul { columns:3; margin-top:8px; padding-left:20px; }
-    .toolbar { position:sticky; top:12px; z-index:10; display:flex; gap:12px; justify-content:center; margin-bottom:20px; flex-wrap:wrap; }
-    .toolbar button { padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-size:14px; font-weight:600; transition:all .2s; }
-    .btn-accept { background:#4caf50; color:white; }
-    .btn-accept:hover { background:#388e3c; }
-    .btn-reject { background:#f44336; color:white; }
-    .btn-reject:hover { background:#d32f2f; }
-    .btn-reset { background:#eee; color:#555; }
-    .btn-reset:hover { background:#ddd; }
-</style>
-</head>
-<body>
-
-<h1>🖼️ Review Ảnh Từ Vựng – EngMaster</h1>
-<p class="subtitle">Duyệt nhanh, click ❌Ảnh sai để loại. Sau đó xoá file ảnh tương ứng trong thư mục vocab_images/</p>
-
-<div class="toolbar">
-    <button class="btn-reject" onclick="showRejected()">📋 Xem danh sách ảnh bị đánh dấu sai</button>
-    <button class="btn-accept" onclick="resetAll()">🔄 Bỏ đánh dấu tất cả</button>
-    <span style="color:#888;align-self:center;" id="rejectCount"></span>
-</div>
-
-<div class="stats">
-    <div class="stat"><div class="num" style="color:#4caf50;">83</div><div class="lbl">Ảnh đã tải</div></div>
-    <div class="stat"><div class="num" style="color:#f44336;">0</div><div class="lbl">Thiếu ảnh</div></div>
-</div>
-
-<div class="grid">
-
-        <div class="card" data-word="Family">
-            <img src="vocab_images/family.jpg" alt="Family" loading="lazy" />
-            <div class="label">Family</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Mother">
-            <img src="vocab_images/mother.jpg" alt="Mother" loading="lazy" />
-            <div class="label">Mother</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Father">
-            <img src="vocab_images/father.jpg" alt="Father" loading="lazy" />
-            <div class="label">Father</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Sibling">
-            <img src="vocab_images/sibling.jpg" alt="Sibling" loading="lazy" />
-            <div class="label">Sibling</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Grandfather">
-            <img src="vocab_images/grandfather.jpg" alt="Grandfather" loading="lazy" />
-            <div class="label">Grandfather</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Apple">
-            <img src="vocab_images/apple.jpg" alt="Apple" loading="lazy" />
-            <div class="label">Apple</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Rice">
-            <img src="vocab_images/rice.jpg" alt="Rice" loading="lazy" />
-            <div class="label">Rice</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Noodle">
-            <img src="vocab_images/noodle.jpg" alt="Noodle" loading="lazy" />
-            <div class="label">Noodle</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Bread">
-            <img src="vocab_images/bread.jpg" alt="Bread" loading="lazy" />
-            <div class="label">Bread</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Cheese">
-            <img src="vocab_images/cheese.jpg" alt="Cheese" loading="lazy" />
-            <div class="label">Cheese</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Travel">
-            <img src="vocab_images/travel.jpg" alt="Travel" loading="lazy" />
-            <div class="label">Travel</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Airport">
-            <img src="vocab_images/airport.jpg" alt="Airport" loading="lazy" />
-            <div class="label">Airport</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Passport">
-            <img src="vocab_images/passport.jpg" alt="Passport" loading="lazy" />
-            <div class="label">Passport</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Luggage">
-            <img src="vocab_images/luggage.jpg" alt="Luggage" loading="lazy" />
-            <div class="label">Luggage</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Hotel">
-            <img src="vocab_images/hotel.jpg" alt="Hotel" loading="lazy" />
-            <div class="label">Hotel</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="School">
-            <img src="vocab_images/school.jpg" alt="School" loading="lazy" />
-            <div class="label">School</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Teacher">
-            <img src="vocab_images/teacher.jpg" alt="Teacher" loading="lazy" />
-            <div class="label">Teacher</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Homework">
-            <img src="vocab_images/homework.jpg" alt="Homework" loading="lazy" />
-            <div class="label">Homework</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Classmate">
-            <img src="vocab_images/classmate.jpg" alt="Classmate" loading="lazy" />
-            <div class="label">Classmate</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Library">
-            <img src="vocab_images/library.jpg" alt="Library" loading="lazy" />
-            <div class="label">Library</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Doctor">
-            <img src="vocab_images/doctor.jpg" alt="Doctor" loading="lazy" />
-            <div class="label">Doctor</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Engineer">
-            <img src="vocab_images/engineer.jpg" alt="Engineer" loading="lazy" />
-            <div class="label">Engineer</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Artist">
-            <img src="vocab_images/artist.jpg" alt="Artist" loading="lazy" />
-            <div class="label">Artist</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Pilot">
-            <img src="vocab_images/pilot.jpg" alt="Pilot" loading="lazy" />
-            <div class="label">Pilot</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Chef">
-            <img src="vocab_images/chef.jpg" alt="Chef" loading="lazy" />
-            <div class="label">Chef</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Lion">
-            <img src="vocab_images/lion.jpg" alt="Lion" loading="lazy" />
-            <div class="label">Lion</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Elephant">
-            <img src="vocab_images/elephant.jpg" alt="Elephant" loading="lazy" />
-            <div class="label">Elephant</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Monkey">
-            <img src="vocab_images/monkey.jpg" alt="Monkey" loading="lazy" />
-            <div class="label">Monkey</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Rabbit">
-            <img src="vocab_images/rabbit.jpg" alt="Rabbit" loading="lazy" />
-            <div class="label">Rabbit</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Dolphin">
-            <img src="vocab_images/dolphin.jpg" alt="Dolphin" loading="lazy" />
-            <div class="label">Dolphin</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Sun">
-            <img src="vocab_images/sun.jpg" alt="Sun" loading="lazy" />
-            <div class="label">Sun</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Rain">
-            <img src="vocab_images/rain.jpg" alt="Rain" loading="lazy" />
-            <div class="label">Rain</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Wind">
-            <img src="vocab_images/wind.jpg" alt="Wind" loading="lazy" />
-            <div class="label">Wind</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Cloud">
-            <img src="vocab_images/cloud.jpg" alt="Cloud" loading="lazy" />
-            <div class="label">Cloud</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Storm">
-            <img src="vocab_images/storm.jpg" alt="Storm" loading="lazy" />
-            <div class="label">Storm</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Snow">
-            <img src="vocab_images/snow.jpg" alt="Snow" loading="lazy" />
-            <div class="label">Snow</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Head">
-            <img src="vocab_images/head.jpg" alt="Head" loading="lazy" />
-            <div class="label">Head</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Hand">
-            <img src="vocab_images/hand.jpg" alt="Hand" loading="lazy" />
-            <div class="label">Hand</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Eye">
-            <img src="vocab_images/eye.jpg" alt="Eye" loading="lazy" />
-            <div class="label">Eye</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Foot">
-            <img src="vocab_images/foot.jpg" alt="Foot" loading="lazy" />
-            <div class="label">Foot</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Heart">
-            <img src="vocab_images/heart.jpg" alt="Heart" loading="lazy" />
-            <div class="label">Heart</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Mouth">
-            <img src="vocab_images/mouth.jpg" alt="Mouth" loading="lazy" />
-            <div class="label">Mouth</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Red">
-            <img src="vocab_images/red.png" alt="Red" loading="lazy" />
-            <div class="label">Red</div>
-            <div class="source">generated</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Blue">
-            <img src="vocab_images/blue.png" alt="Blue" loading="lazy" />
-            <div class="label">Blue</div>
-            <div class="source">generated</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Green">
-            <img src="vocab_images/green.png" alt="Green" loading="lazy" />
-            <div class="label">Green</div>
-            <div class="source">generated</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Yellow">
-            <img src="vocab_images/yellow.png" alt="Yellow" loading="lazy" />
-            <div class="label">Yellow</div>
-            <div class="source">generated</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Black">
-            <img src="vocab_images/black.png" alt="Black" loading="lazy" />
-            <div class="label">Black</div>
-            <div class="source">generated</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="White">
-            <img src="vocab_images/white.png" alt="White" loading="lazy" />
-            <div class="label">White</div>
-            <div class="source">generated</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Shirt">
-            <img src="vocab_images/shirt.jpg" alt="Shirt" loading="lazy" />
-            <div class="label">Shirt</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Pants">
-            <img src="vocab_images/pants.jpg" alt="Pants" loading="lazy" />
-            <div class="label">Pants</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Shoes">
-            <img src="vocab_images/shoes.jpg" alt="Shoes" loading="lazy" />
-            <div class="label">Shoes</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Hat">
-            <img src="vocab_images/hat.jpg" alt="Hat" loading="lazy" />
-            <div class="label">Hat</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Dress">
-            <img src="vocab_images/dress.jpg" alt="Dress" loading="lazy" />
-            <div class="label">Dress</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Jacket">
-            <img src="vocab_images/jacket.jpg" alt="Jacket" loading="lazy" />
-            <div class="label">Jacket</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Tree">
-            <img src="vocab_images/tree.jpg" alt="Tree" loading="lazy" />
-            <div class="label">Tree</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Flower">
-            <img src="vocab_images/flower.jpg" alt="Flower" loading="lazy" />
-            <div class="label">Flower</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="River">
-            <img src="vocab_images/river.jpg" alt="River" loading="lazy" />
-            <div class="label">River</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Mountain">
-            <img src="vocab_images/mountain.jpg" alt="Mountain" loading="lazy" />
-            <div class="label">Mountain</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Ocean">
-            <img src="vocab_images/ocean.jpg" alt="Ocean" loading="lazy" />
-            <div class="label">Ocean</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Forest">
-            <img src="vocab_images/forest.jpg" alt="Forest" loading="lazy" />
-            <div class="label">Forest</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Football">
-            <img src="vocab_images/football.jpg" alt="Football" loading="lazy" />
-            <div class="label">Football</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Tennis">
-            <img src="vocab_images/tennis.jpg" alt="Tennis" loading="lazy" />
-            <div class="label">Tennis</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Swimming">
-            <img src="vocab_images/swimming.jpg" alt="Swimming" loading="lazy" />
-            <div class="label">Swimming</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Basketball">
-            <img src="vocab_images/basketball.jpg" alt="Basketball" loading="lazy" />
-            <div class="label">Basketball</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Running">
-            <img src="vocab_images/running.jpg" alt="Running" loading="lazy" />
-            <div class="label">Running</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Gym">
-            <img src="vocab_images/gym.jpg" alt="Gym" loading="lazy" />
-            <div class="label">Gym</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Computer">
-            <img src="vocab_images/computer.jpg" alt="Computer" loading="lazy" />
-            <div class="label">Computer</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Phone">
-            <img src="vocab_images/phone.jpg" alt="Phone" loading="lazy" />
-            <div class="label">Phone</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Internet">
-            <img src="vocab_images/internet.jpg" alt="Internet" loading="lazy" />
-            <div class="label">Internet</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Camera">
-            <img src="vocab_images/camera.jpg" alt="Camera" loading="lazy" />
-            <div class="label">Camera</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Robot">
-            <img src="vocab_images/robot.jpg" alt="Robot" loading="lazy" />
-            <div class="label">Robot</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Screen">
-            <img src="vocab_images/screen.jpg" alt="Screen" loading="lazy" />
-            <div class="label">Screen</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Park">
-            <img src="vocab_images/park.jpg" alt="Park" loading="lazy" />
-            <div class="label">Park</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Bridge">
-            <img src="vocab_images/bridge.jpg" alt="Bridge" loading="lazy" />
-            <div class="label">Bridge</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Museum">
-            <img src="vocab_images/museum.jpg" alt="Museum" loading="lazy" />
-            <div class="label">Museum</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Market">
-            <img src="vocab_images/market.jpg" alt="Market" loading="lazy" />
-            <div class="label">Market</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Street">
-            <img src="vocab_images/street.jpg" alt="Street" loading="lazy" />
-            <div class="label">Street</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Station">
-            <img src="vocab_images/station.jpg" alt="Station" loading="lazy" />
-            <div class="label">Station</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Water">
-            <img src="vocab_images/water.jpg" alt="Water" loading="lazy" />
-            <div class="label">Water</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Milk">
-            <img src="vocab_images/milk.jpg" alt="Milk" loading="lazy" />
-            <div class="label">Milk</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Coffee">
-            <img src="vocab_images/coffee.jpg" alt="Coffee" loading="lazy" />
-            <div class="label">Coffee</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Tea">
-            <img src="vocab_images/tea.jpg" alt="Tea" loading="lazy" />
-            <div class="label">Tea</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-        <div class="card" data-word="Juice">
-            <img src="vocab_images/juice.jpg" alt="Juice" loading="lazy" />
-            <div class="label">Juice</div>
-            <div class="source">pexels</div>
-            <button class="btn-bad" onclick="this.parentElement.classList.toggle('rejected')">
-                ❌ Ảnh sai
-            </button>
-        </div>
-</div>
-
-
-
-<script>
-function showRejected() {
-    const rejected = document.querySelectorAll('.card.rejected');
-    const words = Array.from(rejected).map(c => c.dataset.word);
-    if (words.length === 0) {
-        alert('Chưa có ảnh nào bị đánh dấu sai.');
-    } else {
-        alert('Ảnh bị đánh dấu sai (' + words.length + '):\n\n' + words.join('\n') + '\n\n→ Vào thư mục vocab_images/ xoá các file này.');
-    }
-}
-function resetAll() {
-    document.querySelectorAll('.card.rejected').forEach(c => c.classList.remove('rejected'));
-}
-// Auto update count
-setInterval(() => {
-    const n = document.querySelectorAll('.card.rejected').length;
-    document.getElementById('rejectCount').textContent = n ? n + ' ảnh bị đánh dấu sai' : '';
-}, 500);
-</script>
-</body>
-</html>
+<!DOCTYPE html><html lang='vi'><head><meta charset='utf-8'>
+<title>Review ảnh từ vựng</title>
+<style>body{font-family:sans-serif;max-width:1200px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.card{border:1px solid #ddd;border-radius:10px;overflow:hidden;background:#fafafa}
+.card img{width:100%;height:180px;object-fit:cover}
+.card .info{padding:10px}
+.card .word{font-weight:bold;font-size:16px}
+.card .status{font-size:12px;color:#666}
+.ok{border-left:4px solid #4caf50}
+.skip{border-left:4px solid #ff9800}
+.fail{border-left:4px solid #f44336}</style></head><body>
+<h1>📸 Review ảnh từ vựng</h1>
+<p>Tổng: 83 ảnh</p><div class='grid'>
+<div class='card ok'><img src='https://i.ibb.co/rK4V7xZY/5f5765abab3e.jpg'><div class='info'><div class='word'>✅ airport</div><div class='status'>20 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/m5tJTPSz/f463c821f83a.jpg'><div class='info'><div class='word'>✅ apple</div><div class='status'>23 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/Ls5D66P/d8aec4035c39.jpg'><div class='info'><div class='word'>✅ artist</div><div class='status'>15 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ basketball</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ black</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ blue</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/ksQdMrT7/63928779bf6a.jpg'><div class='info'><div class='word'>✅ bread</div><div class='status'>13 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ bridge</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ camera</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/zWxjx2df/5c8b5cee50c8.jpg'><div class='info'><div class='word'>✅ cheese</div><div class='status'>32 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/DhwXTDN/335f3d2dabfd.jpg'><div class='info'><div class='word'>✅ chef</div><div class='status'>21 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/JjyCNW5G/32ae3e79ecb5.jpg'><div class='info'><div class='word'>✅ classmate</div><div class='status'>18 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ cloud</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ coffee</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ computer</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/9mf18888/949d12701541.png'><div class='info'><div class='word'>✅ doctor</div><div class='status'>170 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/ddZcWrS/aecde8ebe585.jpg'><div class='info'><div class='word'>✅ dolphin</div><div class='status'>21 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ dress</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/4gFWfT2Z/23aae3830cfc.jpg'><div class='info'><div class='word'>✅ elephant</div><div class='status'>27 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/Txk2gtbk/11d6db9eb8d4.jpg'><div class='info'><div class='word'>✅ engineer</div><div class='status'>26 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ eye</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/2fxGTx9/c9d1ef4d2b9a.jpg'><div class='info'><div class='word'>✅ family</div><div class='status'>14 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/4nk3sNcN/d6ade79f6777.jpg'><div class='info'><div class='word'>✅ father</div><div class='status'>15 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ flower</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ foot</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ football</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ forest</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/4nk3sNcN/d6ade79f6777.jpg'><div class='info'><div class='word'>✅ grandfather</div><div class='status'>15 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ green</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ gym</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ hand</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ hat</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ head</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ heart</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/MkkKwSTp/80e83c1e56fa.jpg'><div class='info'><div class='word'>✅ homework</div><div class='status'>22 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/CKvWYxBR/6dac904794b3.jpg'><div class='info'><div class='word'>✅ hotel</div><div class='status'>13 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ internet</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ jacket</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ juice</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/KjNv21SC/edc361a1854e.jpg'><div class='info'><div class='word'>✅ library</div><div class='status'>36 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/gLVX9B4S/f63956d6b7f2.jpg'><div class='info'><div class='word'>✅ lion</div><div class='status'>29 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/rK4V7xZY/5f5765abab3e.jpg'><div class='info'><div class='word'>✅ luggage</div><div class='status'>20 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ market</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ milk</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/9k0Bv72h/af39d422ae2b.jpg'><div class='info'><div class='word'>✅ monkey</div><div class='status'>30 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/xqCNRs7F/cc8d5e6e71c6.jpg'><div class='info'><div class='word'>✅ mother</div><div class='status'>17 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ mountain</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ mouth</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ museum</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/t6pQpVx/0e8a129708f3.jpg'><div class='info'><div class='word'>✅ noodle</div><div class='status'>22 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ ocean</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ pants</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ park</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/vRcQpFg/d3ef49ba7888.jpg'><div class='info'><div class='word'>✅ passport</div><div class='status'>22 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ phone</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/G3NrZ0qf/44f03a06ba82.jpg'><div class='info'><div class='word'>✅ pilot</div><div class='status'>14 KB</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/GfpyCm19/6d209c728766.jpg'><div class='info'><div class='word'>✅ rabbit</div><div class='status'>16 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ rain</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ red</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/C3yBwnk5/95eccd414ddd.jpg'><div class='info'><div class='word'>✅ rice</div><div class='status'>13 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ river</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ robot</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ running</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/RkGFLJqD/60407d6f08f7.jpg'><div class='info'><div class='word'>✅ school</div><div class='status'>21 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ screen</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ shirt</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ shoes</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/ymWN0Xdf/e406e1b96bb7.jpg'><div class='info'><div class='word'>✅ sibling</div><div class='status'>20 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ snow</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ station</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ storm</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ street</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ sun</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ swimming</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ tea</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/RkGFLJqD/60407d6f08f7.jpg'><div class='info'><div class='word'>✅ teacher</div><div class='status'>21 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ tennis</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card ok'><img src='https://i.ibb.co/C4RF7Gp/fa9c75293250.jpg'><div class='info'><div class='word'>✅ travel</div><div class='status'>28 KB</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ tree</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ water</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ white</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ wind</div><div class='status'>Không có trong Firestore</div></div></div>
+<div class='card skip'><div style='height:180px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999'>No image</div><div class='info'><div class='word'>⏭️ yellow</div><div class='status'>Không có trong Firestore</div></div></div>
+</div></body></html>
