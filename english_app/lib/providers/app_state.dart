@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/app_models.dart';
 import '../services/auth_service.dart';
 import '../services/firestore_service.dart';
@@ -15,10 +16,14 @@ class AppState extends ChangeNotifier {
     _authSub = _authService.authStateChanges.listen((user) {
       final wasLoggedIn = isLoggedIn;
       _setFirebaseUser(user);
-      if (user != null && !wasLoggedIn) loadDataFromFirestore();
+      if (user != null && !wasLoggedIn) {
+        loadDataFromFirestore();
+        _checkAdminRole();
+      }
     });
     _setFirebaseUser(_authService.currentUser);
     loadDataFromFirestore();
+    _checkAdminRole();
   }
 
   final AuthService _authService;
@@ -32,6 +37,27 @@ class AppState extends ChangeNotifier {
   String? get uid => _userId;
   bool get isLoggedIn => userEmail != null;
   bool authReady = false;
+
+  // ─── Admin ───
+  bool _isAdmin = false;
+  bool get isAdmin => _isAdmin;
+
+  /// Kiểm tra role admin từ Firestore
+  Future<void> _checkAdminRole() async {
+    final uid = _userId;
+    if (uid == null) {
+      _isAdmin = false;
+      return;
+    }
+    try {
+      final doc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      _isAdmin = doc.exists && doc.data()?['role'] == 'admin';
+      notifyListeners();
+    } catch (_) {
+      _isAdmin = false;
+    }
+  }
 
   // ----- Profile extras -----
   String? avatarId;
@@ -175,11 +201,13 @@ class AppState extends ChangeNotifier {
       for (final entry in favMap.entries) {
         if (entry.value == true) favoriteWordIds.add(entry.key);
       }
-      debugPrint('✅ Loaded ${favoriteWordIds.length} favorites for user $userId');
+      debugPrint(
+          '✅ Loaded ${favoriteWordIds.length} favorites for user $userId');
 
       // Load progress (masteryLevel, grammar completed)
       final wordProg = userData['wordProgress'] as Map<String, dynamic>? ?? {};
-      final grammarProg = userData['grammarProgress'] as Map<String, dynamic>? ?? {};
+      final grammarProg =
+          userData['grammarProgress'] as Map<String, dynamic>? ?? {};
       final convProg = userData['convProgress'] as Map<String, dynamic>? ?? {};
 
       // Áp dụng masteryLevel lên sampleVocab
@@ -261,7 +289,8 @@ class AppState extends ChangeNotifier {
   void _recalculateAllProgress() {
     // Vocab
     if (sampleVocab.isNotEmpty) {
-      final mastered = sampleVocab.where((v) => v.masteryLevel == 'Đã thuộc').length;
+      final mastered =
+          sampleVocab.where((v) => v.masteryLevel == 'Đã thuộc').length;
       progressByCategory['vocab'] = mastered / sampleVocab.length;
     }
     // Grammar
@@ -272,13 +301,16 @@ class AppState extends ChangeNotifier {
     // Conversation
     final convTotal = conversationLines.length;
     if (convTotal > 0) {
-      final mastered = conversationLines.where((c) => c.masteryLevel == 'Đã thuộc').length;
+      final mastered =
+          conversationLines.where((c) => c.masteryLevel == 'Đã thuộc').length;
       progressByCategory['conversation'] = mastered / convTotal;
     }
     // Phrase (dùng chung sampleVocab với category='phrase')
-    final phraseWords = sampleVocab.where((v) => v.category == 'phrase').toList();
+    final phraseWords =
+        sampleVocab.where((v) => v.category == 'phrase').toList();
     if (phraseWords.isNotEmpty) {
-      final mastered = phraseWords.where((v) => v.masteryLevel == 'Đã thuộc').length;
+      final mastered =
+          phraseWords.where((v) => v.masteryLevel == 'Đã thuộc').length;
       progressByCategory['phrase'] = mastered / phraseWords.length;
     }
   }
@@ -352,7 +384,11 @@ class AppState extends ChangeNotifier {
     final userId = uid;
     if (userId == null) return;
     _firestoreService.saveDailyGoals(
-      userId, _dailyGoalDate, wordsStudiedToday, grammarDoneToday, practiceSessionsToday,
+      userId,
+      _dailyGoalDate,
+      wordsStudiedToday,
+      grammarDoneToday,
+      practiceSessionsToday,
     );
   }
 
@@ -397,7 +433,10 @@ class AppState extends ChangeNotifier {
     final userId = uid;
     if (userId != null) {
       _firestoreService.saveStreak(
-        userId, currentStreak, longestStreak, _lastActiveDate,
+        userId,
+        currentStreak,
+        longestStreak,
+        _lastActiveDate,
       );
     }
   }
@@ -467,7 +506,8 @@ class AppState extends ChangeNotifier {
     try {
       final userId = uid;
       if (userId != null) {
-        await _firestoreService.updateUserGrammarCompleted(userId, lessonId, true);
+        await _firestoreService.updateUserGrammarCompleted(
+            userId, lessonId, true);
       }
     } catch (e) {
       debugPrint('Lỗi cập nhật Firestore: $e');

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/app_state.dart';
+import '../admin/providers/admin_provider.dart';
+import '../admin/screens/admin_main_screen.dart';
 import '../theme/app_theme.dart';
 import 'home_shell.dart';
 import 'login_screen.dart';
@@ -41,9 +43,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
             _passCtrl.text,
           );
       if (!mounted) return;
+
+      // Kiểm tra role trước khi điều hướng
+      await context.read<AdminProvider>().init();
+      if (!mounted) return;
+
+      final isAdmin = context.read<AdminProvider>().isAdmin;
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => const HomeShell()),
+        MaterialPageRoute(
+          builder: (_) => isAdmin ? const AdminMainScreen() : const HomeShell(),
+        ),
         (route) => false,
       );
     } on FirebaseAuthException catch (e) {
